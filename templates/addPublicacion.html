@@ -7,19 +7,25 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="/add_post" method="post" enctype="multipart/form-data">
         <h1>Publicar</h1>
         <label for="titulo">Título:</label><br>
-        <input type="text" id="titula" name="titulo"><br>
+        <input type="text" id="titulo" name="titulo"><br>
         <br>
-        <label for="imagen">Agregar imagen:</label><br>
+        <label for="logo">Agregar imagen:</label><br>
         <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;"><br>
-        <input type="button" value="Editar imagen"><br>
-        <br>
+        
+        <input type="file" name="imagen" accept="image/*">
+        <br><br>
+        <input type="submit" value="Subir Imagen">
+        <br><br>
         <label for="descripcion">Agregar descripción:</label><br>
         <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br><br>
         <br>
-        <input type="button" value="Publicar">
+        <button type="submit">
+            Publicar
+        </button>
+
     </form>
 </body>
 </html>

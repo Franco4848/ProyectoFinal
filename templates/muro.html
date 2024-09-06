@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/muro.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Publicaciones</h1>
+        
+        {% for cliente in clientes %}
+        <div class="post">
+            <h2>{{cliente.titulo}}</h2>
+            <img src="{{ url_for('static', filename='uploads/' + cliente.imagen) }}" alt="Imagen de {{cliente.titulo}}">
+            <p class="post-description">{{cliente.descripcion}}</p>
+            <button>
+                <a href="/añadir">Comentar</a>
+            </button>
+        </div>
+        {% endfor %}
+        
+        
+    </div>
+
+</body>
+</html>
