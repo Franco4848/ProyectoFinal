@@ -1,0 +1,17 @@
+body{
+ 
+    grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
+    color: aqua;
+}
+#chat{
+    border: 1px solid #000;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 350;
+    height: 100%;
+    position: relative;
+}
+
+form{
+    color: red;
+}
