@@ -1,17 +1,34 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+:root{
+    color-scheme: ligth dark;
+}
+
 body{
- 
+    margin: 0;
+    font-family: sans-serif ;
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    padding: 36px;
     grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
-    color: aqua;
 }
 #chat{
-    border: 1px solid #000;
+    border: 1px solid #ffffff;
     border-radius: 4px;
     overflow: hidden;
-    width: 350;
+    width: 350px;
     height: 100%;
     position: relative;
 }
 
-form{
-    color: red;
+#form{
+    margin: 10px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    margin-left: 40px;
 }
