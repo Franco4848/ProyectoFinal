@@ -14,6 +14,8 @@ def chat():
 @socketio.on('message') #Cuando escuche un evento llamado message que va a venir del cliente que haga algo.
 def handleMessage(msg):
     print("Mensaje: " + msg)
+    send(msg, broadcast = True) #Para reenviar el mensaje a todos los clientes (Las demas pestañas).
+    return msg
 
 if __name__ == '__main__':
     socketio.run(app)

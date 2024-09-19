@@ -10,25 +10,43 @@
     import {io} from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js'
     const socket = io();
     </script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js">
-    </script>
-    <script>
-    const socket = io();
-    socket.emit('message', 'hello'); //(Nombre del evento en el serv) , (mensaje a enviar)
 
-    </script>
 
 </head>
 <body>
     <section id="chat">
-        <form id="form">
-            <input type="text" name="message" id="input" placeholder="type a message" autocomplete="off">
-            <button type="submit">Enviar</button>
-        </form>
+
+        <ul id="messages"></ul>
+
+        <div id="form">
+            <input type="text" name="message" id="myMessage" placeholder="type a message" autocomplete="off">
+            <button type="submit" id="send">Enviar</button>
+        </div>
     </section>
+        <!-- jQuery: Permite obtener y utilizar los id -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+        crossorigin="anonymous"> 
+        </script>
 
-
-
-    <script src="/server/index.js"></script>
+        <!-- socketio -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+        
+        <script>
+        const socket = io();
+        //socket.emit('message', 'hello'); //(Nombre del evento en el serv) , (mensaje a enviar)
+        socket.on('message', function (msg){
+            $('#messages').append('<li>' + msg + '</li>') //Para guardar los mensajes que se envian dentro de los li.
+        } );
+        $('#send').on('click', function (){
+            socket.send($('#myMessage').val()); 
+            $('#myMessage').val('');
+        });
+        </script>
+    
+        
+    
+        
 </body>
 </html>
+    <!-- <script src="/server/index.js"></script> -->
