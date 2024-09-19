@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHAT</title>
     <link rel="stylesheet" href="/static/css/mensajes.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <!-- <script type="module">
     import {io} from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js'
@@ -19,8 +20,8 @@
         <ul id="messages"></ul>
 
         <div id="form">
-            <input type="text" name="message" id="myMessage" placeholder="type a message" autocomplete="off">
-            <button type="submit" id="send">Enviar</button>
+            <input type="text" name="message" id="myMessage" placeholder="Type a message" autocomplete="off">
+            <button type="submit" id="send"><i class='bx bxs-send'></i></button>
         </div>
     </section>
         <!-- jQuery: Permite obtener y utilizar los id -->
@@ -36,8 +37,14 @@
         const socket = io();
         //socket.emit('message', 'hello'); //(Nombre del evento en el serv) , (mensaje a enviar)
         socket.on('message', function (msg){
-            $('#messages').append('<li>' + msg + '</li>') //Para guardar los mensajes que se envian dentro de los li.
+        $('#messages').append(`
+            <div class="message-conteiner"> 
+                <i class='bx bxs-user-circle'></i>
+                <li>` + msg + `</li>
+            </div>
+        `); //Para guardar los mensajes que se envian dentro de los li + logo de usuario.
         } );
+
         $('#send').on('click', function (){
             socket.send($('#myMessage').val()); 
             $('#myMessage').val('');

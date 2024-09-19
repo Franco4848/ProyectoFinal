@@ -1,10 +1,12 @@
+
+
 *,
 *::before,
 *::after{
     box-sizing: border-box;
 }
 :root{
-    color-scheme: ligth dark;
+    /* color-scheme: ligth dark; */
 }
 
 body{
@@ -17,12 +19,13 @@ body{
     grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
 }
 #chat{
-    border: 1px solid #ffffff;
+    /* border: 1px solid #000000; */
     border-radius: 4px;
     overflow: hidden;
     width: 350px;
     height: 100%;
     position: relative;
+    font-size: 18px;
 }
 
 #form{
@@ -30,5 +33,59 @@ body{
     position: absolute;
     bottom: 10px;
     width: 100%;
-    margin-left: 40px;
+    margin-left: 10px;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
 }
+#myMessage{
+    margin: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    border-left: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    width: 270px;
+}
+#send{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #eee;
+    font-size: 20px;
+    margin-right: 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.message-conteiner{
+    display: flex;
+    align-items: center;
+}
+.bxs-user-circle{
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+#messages{
+    list-style: none;
+    color: #000;
+    background-color: transparent;
+    margin: 10px;
+    border-radius: 10px;
+    max-height: 400px;
+    padding: 10px;
+
+}
+ul li{
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+
