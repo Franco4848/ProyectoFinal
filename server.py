@@ -23,10 +23,9 @@ app.config['SECRET_KEY'] = '4848'
 
 mysql = MySQL(app)
 
-
-@app.route("/")
-def add():
-    return render_template("addPublicacion.html") 
+#@app.route("/")
+#def add():
+#    return render_template("muro.html") 
 
 
 @app.route("/add_post",methods= ["GET", "POST"])
@@ -48,20 +47,61 @@ def add_post():
                     (titulo, image_path, descripcion))
         mysql.connection.commit()
 
-    return redirect(url_for("add"))
+    return redirect(url_for("muro"))
 
+@app.route("/add_comment/<int:publi_id>",methods= ["GET", "POST"])
+def add_comment(publi_id):
+    if request.method =="POST":
+        descripcion= request.form["descripcion"]
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO comentarios (descripcion, publi_id)VALUES(%s, %s)",
+        (descripcion,publi_id))
+        mysql.connection.commit()
+    return redirect(url_for("muro"))
+
+
+
+@app.route('/comentarios')
+def comentarios():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM comentarios")
+    data = cur.fetchall()
+    return render_template( 'comments.html', clientes = data)
 
 @app.route('/muro')
 def muro():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM publi")
-    data = cur.fetchall()
-    return render_template( 'muro.html', clientes = data)
+    cur.execute("""
+        SELECT p.id, p.titulo, p.imagen, p.descripcion, c.descripcion AS comentario 
+        FROM publi p
+        LEFT JOIN comentarios c ON p.id = c.publi_id
+        ORDER BY p.id
+    """)
+    
+    rows = cur.fetchall()
+    
+    if rows:
+        publicaciones = {}
+        
+        for row in rows:
+            publi_id = row['id']
+            if publi_id not in publicaciones:
+                publicaciones[publi_id] = {
+                    'id': publi_id,
+                    'titulo': row['titulo'],
+                    'imagen': row['imagen'],
+                    'descripcion': row['descripcion'],
+                    'comentarios': []
+                }
+            if row['comentario']:
+                publicaciones[publi_id]['comentarios'].append(row['comentario'])
 
+        publicaciones_list = list(publicaciones.values())
+    else:
+        publicaciones_list = []
 
-
-
+    return render_template('muro.html', clientes=publicaciones_list)
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=3000, debug=True)

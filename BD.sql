@@ -9,3 +9,11 @@ CREATE TABLE publi (
   imagen VARCHAR(255) NOT NULL,
   descripcion VARCHAR(255)
 );
+
+CREATE TABLE comentarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  descripcion VARCHAR(255),
+  publi_id INT,
+  FOREIGN KEY (publi_id) REFERENCES publi(id)
+
+);
