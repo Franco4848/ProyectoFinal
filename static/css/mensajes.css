@@ -79,7 +79,7 @@ body{
     padding: 10px;
 
 }
-ul li{
+ul .mensaje{
     width: 200px;
     height: auto;
     margin-bottom: 10px;

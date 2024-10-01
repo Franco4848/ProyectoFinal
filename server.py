@@ -12,12 +12,11 @@ app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 load_dotenv()
 
-@app.route('/')
+@app.route('/chat')
 def chat():
     return render_template('mensajes.html')
 
 #Para que el server este pendiente a la escucha de los eventos:
-
 @socketio.on('message') #Cuando escuche un evento llamado message que va a venir del cliente que haga algo.
 def handleMessage(msg):
     print("Mensaje: " + msg)
@@ -113,6 +112,10 @@ def muro():
 
     return render_template('muro.html', clientes=publicaciones_list)
 
+
+@app.route('/support')
+def suppot():
+    return render_template('support.html')
 
 if __name__ == '__main__':
     socketio.run(app)

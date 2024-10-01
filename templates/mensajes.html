@@ -6,19 +6,13 @@
     <title>CHAT</title>
     <link rel="stylesheet" href="/static/css/mensajes.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-    <!-- <script type="module">
-    import {io} from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js'
-    const socket = io();
-    </script> -->
-
 
 </head>
 <body>
+
+
     <section id="chat">
-
         <ul id="messages"></ul>
-
         <div id="form">
             <input type="text" name="message" id="myMessage" placeholder="Type a message" autocomplete="off">
             <button type="submit" id="send"><i class='bx bxs-send'></i></button>
@@ -40,7 +34,7 @@
         $('#messages').append(`
             <div class="message-conteiner"> 
                 <i class='bx bxs-user-circle'></i>
-                <li>` + msg + `</li>
+                <li class="mensaje">` + msg + `</li>
             </div>
         `); //Para guardar los mensajes que se envian dentro de los li + logo de usuario.
         } );
