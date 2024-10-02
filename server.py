@@ -57,6 +57,16 @@ class User(UserMixin):
         self.email = email
         self.contraseña = contraseña
 
+@login_manager.user_loader
+def load_user(user_id):
+    cur = mysql.connection.cursor() 
+    cur.execute('SELECT id_usuario, nombre_completo, username, email, contraseña FROM usuario WHERE id_usuario = %s', (user_id,))
+    usuario = cur.fetchone()
+    cur.close()
+    if usuario:
+        return User(usuario['id_usuario'], usuario['nombre_completo'], usuario['username'], usuario['email'], usuario['contraseña'])
+    return None
+
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
     if request.method =="POST":
