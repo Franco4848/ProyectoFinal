@@ -67,6 +67,28 @@ def load_user(user_id):
         return User(usuario['id_usuario'], usuario['nombre_completo'], usuario['username'], usuario['email'], usuario['contraseña'])
     return None
 
+@app.route('/login', methods= ["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        email= request.form['email']
+        contraseña = request.form["contraseña"]
+
+        cur= mysql.connection.cursor()
+        cur.execute('SELECT * FROM usuario WHERE email = %s AND contraseña = %s', (email, contraseña))
+        usuario= cur.fetchone()
+        cur.close()
+
+        if usuario:
+            user_obj = User(usuario['id_usuario'], usuario['nombre_completo'], usuario['username'], usuario['email'], usuario['contraseña'])
+            login_user(user_obj)
+            flash('Inicio de sesión exitoso.', 'success')
+            return redirect(url_for('muro'))
+        else:
+            flash('Email o contraseña incorrectos. Por favor, intenta nuevamente.', 'error')
+            return render_template('login.html', email= email, contraseña= contraseña )
+    else:
+        return render_template('login.html')
+
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
     if request.method =="POST":
