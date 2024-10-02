@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 import os
 import bcrypt
+# pip install flask-login
+from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
