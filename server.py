@@ -88,6 +88,16 @@ def login():
             return render_template('login.html', email= email, contraseña= contraseña )
     else:
         return render_template('login.html')
+    
+def validarEmail(email):
+    cur= mysql.connection.cursor()
+    cur.execute('SELECT * FROM usuario where email = %s', (email,))
+    email_existente= cur.fetchone()
+    cur.close()
+    if email_existente:
+        return True
+    else:
+        return False
 
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
