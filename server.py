@@ -98,6 +98,16 @@ def validarEmail(email):
         return True
     else:
         return False
+    
+def validarUsername(username):
+    cur= mysql.connection.cursor()
+    cur.execute('SELECT * FROM usuario where username = %s', (username,))
+    username_existente= cur.fetchone()
+    cur.close()
+    if username_existente:
+        return True
+    else: 
+        return False
 
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
