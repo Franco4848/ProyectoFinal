@@ -48,6 +48,15 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = "Por favor inicie sesión para acceder a esta página."
 
+#----MODELO DE USUARIO----#
+class User(UserMixin):
+    def __init__(self, id_usuario, nombre_completo, username, email, contraseña):
+        self.id = id_usuario
+        self.nombre_completo = nombre_completo
+        self.username= username
+        self.email = email
+        self.contraseña = contraseña
+
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
     if request.method =="POST":
