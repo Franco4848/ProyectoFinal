@@ -125,6 +125,16 @@ def calculoEdad(fechaNac):
         edad= edad
     return edad, fecha_perfil
 
+def validarContraseña(contraseña):
+    minuscula= any(caracter.islower() for caracter in contraseña)
+    mayuscula= any(caracter.isupper() for caracter in contraseña)
+    numero= any(caracter.isdigit() for caracter in contraseña)
+    espacio_contraseña= any(caracter.isspace() for caracter in contraseña)
+    if minuscula == False or mayuscula == False or numero == False or espacio_contraseña == True:
+        return False
+    else:
+        return True
+
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
     if request.method =="POST":
