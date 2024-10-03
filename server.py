@@ -145,7 +145,7 @@ def registro():
         fechaNac= request.form['fechaNac']
         contraseña= request.form['contraseña']
         contraseña2= request.form['contraseña2']
-        
+
         edad, _ = calculoEdad(fechaNac)
 
         flash_msg= None
@@ -273,6 +273,19 @@ def obtenerDatosUsuario(id_usuario):
     datos= cur.fetchone()
     cur.close()
     return datos
+
+@app.route('/perfil/<id_usuario>')
+@login_required
+def perfil(id_usuario):
+    datos= obtenerDatosUsuario(id_usuario)
+    cur= mysql.connection.cursor()
+    #cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
+    #datos= cur.fetchone()
+    cur.execute('SELECT * FROM publicacion WHERE id_usuario = %s', (id_usuario,))
+    publicaciones= cur.fetchall()
+    cur.close()
+    edad, fecha_perfil= calculoEdad(datos['fechaNac'])
+    return render_template('perfil.html', datos = datos, publicaciones = publicaciones, edad = edad, fecha_perfil= fecha_perfil)
 
 if __name__ == '__main__':
     socketio.run(app)
