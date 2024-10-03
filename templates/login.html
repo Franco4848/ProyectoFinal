@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+        <form action="/login" method="POST">
+
+            <h1>Inicia Sesión</h1>
+
+            <label for="email">Correo electrónico:</label><br>
+            <input type="email" name="email" id="email" value='{{ email }}' placeholder="Email" required><br>
+            <label for="contraseña">Contraseña:</label><br>
+            <input type="password" name="contraseña" id="contraseña" value='{{ contraseña }}' placeholder="Password" required><br>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>{% for message in messages %}</ul>
+                        <li>{{ message }}</li>
+                    <ul>{% endfor %}</ul>
+                {% endif %}
+            {% endwith %}
+
+            <button type="submit">Ingresar</button><br>
+            
+        </form>
+        <b>¿No tienes una cuenta? </b><a href="{{url_for ('registro')}}">Regístrate</a><br>
+    </div>
+</body>
+</html>
