@@ -145,11 +145,8 @@ def registro():
         fechaNac= request.form['fechaNac']
         contraseña= request.form['contraseña']
         contraseña2= request.form['contraseña2']
-
-        #verificarUsername= validarUsername(username)
-        #email_existente= validarEmail(email)
+        
         edad, _ = calculoEdad(fechaNac)
-        #verificarContraseña= validarContraseña(contraseña)
 
         flash_msg= None
         if validarUsername(username) == False:
@@ -269,6 +266,13 @@ def muro():
 #@login_required
 def suppot():
     return render_template('support.html')
+
+def obtenerDatosUsuario(id_usuario):
+    cur= mysql.connection.cursor()
+    cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
+    datos= cur.fetchone()
+    cur.close()
+    return datos
 
 if __name__ == '__main__':
     socketio.run(app)
