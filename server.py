@@ -18,6 +18,7 @@ socketio = SocketIO(app)
 load_dotenv()
 
 @app.route('/chat')
+#@login_required
 def chat():
     return render_template('mensajes.html')
 
@@ -168,7 +169,7 @@ def registro():
         else:
             cur= mysql.connection.cursor()
             cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
-                         VALUES (%s, %s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
+                         VALUES (%s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
             mysql.connection.commit()
             nuevo_usuario_id = cur.lastrowid
             cur.close()
@@ -186,6 +187,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route("/add_post",methods= ["GET", "POST"])
+#@login_required
 def add_post():
     if request.method =="POST":
         titulo= request.form["titulo"]
@@ -207,6 +209,7 @@ def add_post():
     return redirect(url_for("muro"))
 
 @app.route("/add_comment/<int:publi_id>",methods= ["GET", "POST"])
+#@login_required
 def add_comment(publi_id):
     if request.method =="POST":
         descripcion= request.form["descripcion"]
@@ -219,6 +222,7 @@ def add_comment(publi_id):
 
 
 @app.route('/comentarios')
+#@login_required
 def comentarios():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM comentarios")
@@ -226,6 +230,7 @@ def comentarios():
     return render_template( 'comments.html', clientes = data)
 
 @app.route('/muro')
+#@login_required
 def muro():
     cur = mysql.connection.cursor()
     cur.execute("""
@@ -261,6 +266,7 @@ def muro():
 
 
 @app.route('/support')
+#@login_required
 def suppot():
     return render_template('support.html')
 
