@@ -179,6 +179,12 @@ def registro():
     else:
         return render_template('registro.html')
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('Ha cerrado sesión', 'succes')
+    return redirect(url_for('login'))
+
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
     if request.method =="POST":
