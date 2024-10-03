@@ -4,35 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Vinos</title>
-    <link rel="stylesheet" href="css/buscar.css">
-    <script src="js/buscar.js" defer></script>
-    
+    <link rel="stylesheet" href="/static/css/buscar.css"> <!-- CSS para el modal -->
 </head>
 <body>
     <h1>Buscar Vinos</h1>
-    <button id="searchBtn">Abrir Búsqueda</button>
+    <form id="searchForm" action="/buscar_vinos" method="GET">
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" placeholder="Ej. Tinto, Blanco">
+        
+        <label for="pais">País:</label>
+        <input type="text" id="pais" name="pais" placeholder="Ej. España, Francia">
+        
+        <label for="precio_min">Precio Mínimo:</label>
+        <input type="number" id="precio_min" name="precio_min" value="0">
 
-    <div id="searchModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Buscar Vinos</h2>
-            <form id="searchForm">
-                <label for="tipo">Tipo:</label>
-                <input type="text" id="tipo" name="tipo" placeholder="Ej. Tinto, Blanco">
-                
-                <label for="pais">País:</label>
-                <input type="text" id="pais" name="pais" placeholder="Ej. España, Francia">
-                
-                <label for="precio_min">Precio Mínimo:</label>
-                <input type="number" id="precio_min" name="precio_min" value="0">
+        <label for="precio_max">Precio Máximo:</label>
+        <input type="number" id="precio_max" name="precio_max" value="99999">
 
-                <label for="precio_max">Precio Máximo:</label>
-                <input type="number" id="precio_max" name="precio_max" value="99999">
-
-                <button type="submit">Buscar</button>
-            </form>
-            <div id="results"></div> 
-        </div>
-    </div>
+        <button type="submit">Buscar</button>
+    </form>
 </body>
 </html>
