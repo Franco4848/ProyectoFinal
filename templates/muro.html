@@ -3,92 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/muro.css') }}">
+    <link rel="stylesheet" href="/static/css/muro.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='javascript/modal.js') }}"></script>
 
     <title>Muro de Publicaciones</title>
 </head>
 <body>
-    <div class="container"></div>
-        <!-- Botón para abrir el modal -->
-        <button id="openModal">Agregar Publicación</button>
-        
-        <h1>Publicaciones</h1>
-
-        <!-- Bucle que recorre las publicaciones -->
-        {% for cliente in clientes %}
-        <div class="post">
-            <h2>{{ cliente.titulo }}</h2>
-            <img class="post-image" src="{{ url_for('static', filename='uploads/' + cliente.imagen) }}" alt="Imagen de {{ cliente.titulo }}">
-            <p>{{ cliente.descripcion }}</p>
-
-            <h3>Comentarios</h3>
-
-            <!-- Sección de comentarios -->
-            <div class="comments">
-                {% if cliente.comentarios %}
-                    {% for comentario in cliente.comentarios %}
-                    <div class="comment">
-                        <p>{{ comentario }}</p>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No hay comentarios.</p>
-                {% endif %}
+    <div class="main-container">
+        <!-- NavBar a la izquierda -->
+        <ul class="barraNav">
+            <li class="itemNav"><i class='bx bx-home'></i><a href="/add_post"> Inicio</a></li>
+            <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
+            <li class="itemNav"><i class='bx bx-search-alt'></i><a href="">Buscar</a></li>
+            <li class="itemNav"><i class='bx bx-log-out-circle'></i><a href="">Logout</a></li>
+            <li class="itemNav"><i class='bx bx-user'></i><a href="">Perfil</a></li>
+            <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li>
+        </ul>
+    
+        <!-- Muro de publicaciones -->
+        <div class="container">
+            <!-- Botón para abrir el modal -->
+            <button id="openModal">Agregar Publicación</button>
+                
+            <h1>Publicaciones</h1>
+    
+            <!-- Bucle que recorre las publicaciones -->
+            {% for cliente in clientes %}
+            <div class="post">
+                <h2>{{ cliente.titulo }}</h2>
+                <img class="post-image" src="{{ url_for('static', filename='uploads/' + cliente.imagen) }}" alt="Imagen de {{ cliente.titulo }}">
+                <p>{{ cliente.descripcion }}</p>
+    
+                <h3>Comentarios</h3>
+    
+                <!-- Sección de comentarios -->
+                <div class="comments">
+                    {% if cliente.comentarios %}
+                        {% for comentario in cliente.comentarios %}
+                        <div class="comment">
+                            <p>{{ comentario }}</p>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay comentarios.</p>
+                    {% endif %}
+                </div>
+    
+                <form action="/add_comment/{{ cliente.id }}" method="post">
+                    <input type="text" name="descripcion" placeholder="Escribe un comentario">
+                    <br>
+                    <button type="submit">Comentar</button>
+                </form>
             </div>
-
-            <form action="/add_comment/{{ cliente.id }}" method="post">
-                <input type="text" name="descripcion" placeholder="Escribe un comentario">
-                <br>
-                <button type="submit">Comentar</button>
-            </form>
+            <hr>
+            {% endfor %}
         </div>
-        <hr>
-        {% endfor %}
-    </div>
 
-    <!-- Modal (Ventana emergente) -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <!-- Aquí va el formulario de agregar publicación -->
-            <form class="post-form" action="/add_post" method="post" enctype="multipart/form-data">
-                <h1>Publicar</h1>
-                <label for="titulo">Título:</label><br>
-                <input type="text" id="titulo" name="titulo"><br>
-                <br>
-                <label class="logo" for="logo">Agregar imagen:</label><br>
-                <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;"><br>
-                <input type="file" name="imagen" accept="image/*"><br><br>
-                <label for="descripcion">Agregar descripción:</label><br>
-                <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br><br>
-                <button type="submit">Publicar</button>
-            </form>
+
+
+        <!-- Modal (Ventana emergente) -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Aquí va el formulario de agregar publicación -->
+                <form class="post-form" action="/add_post" method="post" enctype="multipart/form-data">
+                    <h1>Publicar</h1>
+                    <label for="titulo">Título:</label><br>
+                    <input type="text" id="titulo" name="titulo"><br>
+                    <br>
+                    <label class="logo" for="logo">Agregar imagen:</label><br>
+                    <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;"><br>
+                    <input type="file" name="imagen" accept="image/*"><br><br>
+                    <label for="descripcion">Agregar descripción:</label><br>
+                    <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br><br>
+                    <button type="submit">Publicar</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <script>
-        // Obtén el modal y el botón que lo abre
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("openModal");
-        var span = document.getElementsByClassName("close")[0];
+        <script>
+            // Obtén el modal y el botón que lo abre
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("openModal");
+            var span = document.getElementsByClassName("close")[0];
 
-        // Cuando se hace clic en el botón, se muestra el modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
+            // Cuando se hace clic en el botón, se muestra el modal
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
 
-        // Cuando se hace clic en la 'x', se cierra el modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Si el usuario hace clic fuera del modal, también se cierra
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            // Cuando se hace clic en la 'x', se cierra el modal
+            span.onclick = function() {
                 modal.style.display = "none";
             }
-        }
-    </script>
+
+            // Si el usuario hace clic fuera del modal, también se cierra
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+    </div>
 </body>
 </html>
