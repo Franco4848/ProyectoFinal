@@ -134,6 +134,52 @@ def validarContraseña(contraseña):
         return False
     else:
         return True
+    
+@app.route('/registro', methods= ["GET", "POST"])
+def registro():
+    if request.method == 'POST':
+        nombre_completo= request.form['nombre_completo']
+        username= request.form['username']
+        email= request.form['email']
+        fechaNac= request.form['fechaNac']
+        contraseña= request.form['contraseña']
+        contraseña2= request.form['contraseña2']
+        fotoPerfil= request.form['fotoPerfil']
+
+        #verificarUsername= validarUsername(username)
+        #email_existente= validarEmail(email)
+        edad, _ = calculoEdad(fechaNac)
+        #verificarContraseña= validarContraseña(contraseña)
+
+        flash_msg= None
+        if validarUsername(username) == True:
+            flash_msg= 'Este nombre de usuario no está disponible, prueba con otro.'
+        elif validarEmail(email) == True:
+            flash_msg= 'Este correo electrónico ya está en uso, prueba con otro.'
+        elif edad < 18:
+            flash_msg= 'No es posible crear la cuenta en este momento.'
+        elif validarContraseña(contraseña) == False:
+            flash_msg= 'La contraseña debe incluir números y letras tanto mayúsculas como minúsculas sin espacios.'
+        elif contraseña != contraseña2:
+            flash_msg= 'Las contraseñas no coinciden, intente de nuevo.'
+        
+        if flash_msg:
+            flash(flash_msg, 'error')
+            return render_template('registro.html', nombre_completo= nombre_completo, username= username, email= email,
+                                   fechaNac= fechaNac, contraseña= contraseña, contraseña2= contraseña2)
+        else:
+            cur= mysql.connection.cursor()
+            cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña, fotoPerfil)
+                         VALUES (%s, %s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña, fotoPerfil))
+            mysql.connection.commit()
+            nuevo_usuario_id = cur.lastrowid
+            cur.close()
+            user_obj = User(nuevo_usuario_id, nombre_completo, username, email, contraseña)
+            login_user(user_obj)
+            flash('Registro exitoso. ¡Bienvenido!', 'success')
+            return redirect(url_for('muro'))
+    else:
+        return render_template('registro.html')
 
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
