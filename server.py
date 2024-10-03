@@ -96,9 +96,9 @@ def validarEmail(email):
     email_existente= cur.fetchone()
     cur.close()
     if email_existente:
-        return True
-    else:
         return False
+    else:
+        return True
     
 def validarUsername(username):
     cur= mysql.connection.cursor()
@@ -106,9 +106,9 @@ def validarUsername(username):
     username_existente= cur.fetchone()
     cur.close()
     if username_existente:
-        return True
-    else: 
         return False
+    else: 
+        return True
 
 def calculoEdad(fechaNac):
     fecha= datetime.strptime(str(fechaNac), '%Y-%m-%d')
@@ -144,7 +144,6 @@ def registro():
         fechaNac= request.form['fechaNac']
         contraseña= request.form['contraseña']
         contraseña2= request.form['contraseña2']
-        fotoPerfil= request.form['fotoPerfil']
 
         #verificarUsername= validarUsername(username)
         #email_existente= validarEmail(email)
@@ -152,9 +151,9 @@ def registro():
         #verificarContraseña= validarContraseña(contraseña)
 
         flash_msg= None
-        if validarUsername(username) == True:
+        if validarUsername(username) == False:
             flash_msg= 'Este nombre de usuario no está disponible, prueba con otro.'
-        elif validarEmail(email) == True:
+        elif validarEmail(email) == False:
             flash_msg= 'Este correo electrónico ya está en uso, prueba con otro.'
         elif edad < 18:
             flash_msg= 'No es posible crear la cuenta en este momento.'
@@ -162,15 +161,14 @@ def registro():
             flash_msg= 'La contraseña debe incluir números y letras tanto mayúsculas como minúsculas sin espacios.'
         elif contraseña != contraseña2:
             flash_msg= 'Las contraseñas no coinciden, intente de nuevo.'
-        
         if flash_msg:
             flash(flash_msg, 'error')
             return render_template('registro.html', nombre_completo= nombre_completo, username= username, email= email,
                                    fechaNac= fechaNac, contraseña= contraseña, contraseña2= contraseña2)
         else:
             cur= mysql.connection.cursor()
-            cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña, fotoPerfil)
-                         VALUES (%s, %s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña, fotoPerfil))
+            cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
+                         VALUES (%s, %s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
             mysql.connection.commit()
             nuevo_usuario_id = cur.lastrowid
             cur.close()
