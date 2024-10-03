@@ -10,6 +10,7 @@ import bcrypt
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime
 import locale
+locale.setlocale(locale.LC_TIME, 'es_AR.UTF-8')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -108,6 +109,21 @@ def validarUsername(username):
         return True
     else: 
         return False
+
+def calculoEdad(fechaNac):
+    fecha= datetime.strptime(str(fechaNac), '%Y-%m-%d')
+    fecha_perfil= f'{fecha.day} de {fecha.strftime('%B')} de {fecha.year}'
+    edad = datetime.now().year - fecha.year
+    if datetime.now().month < fecha.month:
+        edad -= 1
+    elif datetime.now().month == fecha.month:
+        if datetime.now().day < fecha.day:
+            edad -= 1
+        else:
+            edad= edad
+    else:
+        edad= edad
+    return edad, fecha_perfil
 
 @app.route("/add_post",methods= ["GET", "POST"])
 def add_post():
