@@ -288,19 +288,14 @@ def buscar_vinos():
     AND (pais = %s OR %s = '')
     AND precio BETWEEN %s AND %s
     """
+    
     cursor = mysql.connection.cursor()
     cursor.execute(query, (tipo, tipo, pais, pais, precio_min, precio_max))
     vinos = cursor.fetchall()
     cursor.close()
 
-    vinos_list = [{
-        'nombre': vino['nombre'],
-        'tipo': vino['tipo'],
-        'pais': vino['pais'],
-        'precio': vino['precio'],
-    } for vino in vinos]
+    return render_template('resultados_busqueda.html', vinos=vinos)
 
-    return jsonify(vinos_list)
 
 if __name__ == '__main__':
     socketio.run(app)
