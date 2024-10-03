@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #d9d9d9; 
+    background-color: #1e0d26; 
     color: #333;
 }
 
@@ -27,7 +27,7 @@ a{
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s
+        transition: background-color 0.3s
 }
 
 h1 {

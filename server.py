@@ -270,9 +270,12 @@ def muro():
 def suppot():
     return render_template('support.html')
 
-
-@app.route('/buscar', methods=['GET'])
+@app.route('/buscar')
 def buscar():
+    return render_template('buscar.html') 
+
+@app.route('/buscar_vinos', methods=['GET'])
+def buscar_vinos():
     tipo = request.args.get('tipo', '')
     pais = request.args.get('pais', '')
     precio_min = request.args.get('precio_min', 0)
@@ -291,7 +294,7 @@ def buscar():
     vinos = cursor.fetchall()
     cursor.close()
 
-    return render_template('buscar.html', vinos=vinos)
+    return render_template('busqueda.html', vinos=vinos)
 
 
 if __name__ == '__main__':
