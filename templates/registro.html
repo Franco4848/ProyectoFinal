@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registro.css') }}">
+    <title>Crear cuenta</title>
+</head>
+<body>
+    <form action="/registro" method="POST"> 
+
+        <h1>¡Únete a VinoMarket! </h1>
+        <h2>Sé parte de nuestra comunidad apasionada por el vino</h2>
+
+        <label for="nombre_completo">Nombre completo:</label><br>
+        <input type="text" name="nombre_completo" id="nombre_completo" value='{{ nombre_completo }}' placeholder="Tu Nombre" maxlength="50" required><br>
+        
+        <label for="username">Nombre de usuario:</label><br>
+        <input type="text"  name="username" id="username" value='{{ username }}' placeholder="Username" minlength="5" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required><br>
+        
+        <label for="email">Correo electrónico:</label><br>
+        <input type="email" name="email" id="email" value='{{ email }}' placeholder="Email" title="No se podrá modificar tras el registro" required><br>
+        
+        <label for="fechaNac">Fecha de nacimiento:</label><br>
+        <input type="date" name="fechaNac" id="fechaNac" value="{{ fechaNac }}" placeholder="mm/dd/aaaa" title="No se podrá modificar tras el registro" required ><br>
+        
+        <label for="contraseña">Contraseña:</label><br>
+        <input type="password"  name="contraseña" id="contraseña" value='{{ contraseña }}' placeholder="Password" minlength="8" title="No se podrá modificar tras el registro" required><br>
+        
+        <label for="contraseña2">Vuelva a escribir la contraseña:</label><br>
+        <input type="password" name="contraseña2" id="contraseña2" value='{{ contraseña2 }}' placeholder="Confirmación de contraseña" required><br>
+        
+        <button type="submit">Registrarme</button><br>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>{% for message in messages %}</ul>
+                    <li>{{ message }}</li>
+                <ul>{% endfor %}</ul>
+            {% endif %}
+        {% endwith %}
+
+    </form>
+    <b>¿Tienes una cuenta? </b><a href="{{url_for('login')}}">Iniciar sesión</a><br>
+</body>
+</html>
