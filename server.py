@@ -117,7 +117,7 @@ def validarUsername(username):
 
 def calculoEdad(fechaNac):
     fecha= datetime.strptime(str(fechaNac), '%Y-%m-%d')
-    fecha_perfil= f'{fecha.day} de {fecha.strftime('%B')} de {fecha.year}'
+    fecha_perfil= f'{fecha.day} de {fecha.strftime("%B")} de {fecha.year}'
     edad = datetime.now().year - fecha.year
     if datetime.now().month < fecha.month:
         edad -= 1
