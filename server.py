@@ -190,6 +190,7 @@ def add_post():
         titulo= request.form["titulo"]
         imagen= request.files["imagen"]
         descripcion= request.form["descripcion"]
+        id_usuario= current_user.id
         if imagen:
             # Guardar la imagen en el servidor
             filename = secure_filename(imagen.filename)
@@ -199,8 +200,8 @@ def add_post():
             image_path = filename
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO publi (titulo, imagen, descripcion) VALUES (%s, %s, %s)", 
-                    (titulo, image_path, descripcion))
+        cur.execute("INSERT INTO publi (titulo, imagen, descripcion, id_usuario) VALUES (%s, %s, %s,  %s)", 
+                    (titulo, image_path, descripcion, id_usuario))
         mysql.connection.commit()
 
     return redirect(url_for("muro"))
@@ -265,7 +266,8 @@ def muro():
 @app.route('/support')
 #@login_required
 def suppot():
-    return render_template('support.html')
+    id_usuario= current_user.id
+    return render_template('support.html', id_usuario = id_usuario)
 
 def obtenerDatosUsuario(id_usuario):
     cur= mysql.connection.cursor()
@@ -281,9 +283,8 @@ def perfil(id_usuario):
     cur= mysql.connection.cursor()
     #cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
     #datos= cur.fetchone()
-    cur.execute('SELECT * FROM publicacion WHERE id_usuario = %s', (id_usuario,))
+    cur.execute('SELECT * FROM publi WHERE id_usuario = %s', (id_usuario,))
     publicaciones= cur.fetchall()
-    cur.close()
     edad, fecha_perfil= calculoEdad(datos['fechaNac'])
     return render_template('perfil.html', datos = datos, publicaciones = publicaciones, edad = edad, fecha_perfil= fecha_perfil)
 
