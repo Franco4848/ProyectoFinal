@@ -31,3 +31,8 @@ CREATE TABLE usuario (
     ubicacion VARCHAR(100) NOT NULL,
     mostrarSiNo VARCHAR(10) NOT NULL
 );
+
+ALTER TABLE publi 
+ADD COLUMN id_usuario INT, 
+ADD CONSTRAINT fk_usuario 
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
