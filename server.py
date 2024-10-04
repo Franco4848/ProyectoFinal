@@ -12,6 +12,10 @@ app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 load_dotenv()
 
+@app.route("/")
+def main():
+    return render_template("index.html")
+
 @app.route('/chat')
 def chat():
     return render_template('mensajes.html')
