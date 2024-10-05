@@ -91,17 +91,27 @@ def login():
     else:
         return render_template('login.html')
     
-def validarEmail(email):
-    cur= mysql.connection.cursor()
+def validarEmail(cur, email):
     cur.execute('SELECT * FROM usuario where email = %s', (email,))
     email_existente= cur.fetchone()
-    cur.close()
     if email_existente:
         return False
     else:
         return True
-    
-def validarUsername(username):
+
+def validarUsername(cur, username, id_usuario=None):
+    if id_usuario:
+        cur.execute('SELECT * FROM usuario WHERE username = %s AND id_usuario != %s', (username, id_usuario))
+    else:
+        cur.execute('SELECT * FROM usuario WHERE username = %s', (username,))
+    username_existente= cur.fetchone()
+    if username_existente:
+        return False
+    else:
+        return True
+
+
+#def validarUsername(username):
     cur= mysql.connection.cursor()
     cur.execute('SELECT * FROM usuario where username = %s', (username,))
     username_existente= cur.fetchone()
@@ -138,6 +148,7 @@ def validarContraseña(contraseña):
     
 @app.route('/registro', methods= ["GET", "POST"])
 def registro():
+    cur= mysql.connection.cursor()
     if request.method == 'POST':
         nombre_completo= request.form['nombre_completo']
         username= request.form['username']
@@ -149,9 +160,9 @@ def registro():
         edad, _ = calculoEdad(fechaNac)
 
         flash_msg= None
-        if validarUsername(username) == False:
+        if validarUsername(cur, username) == False:
             flash_msg= 'Este nombre de usuario no está disponible, prueba con otro.'
-        elif validarEmail(email) == False:
+        elif validarEmail(cur, email) == False:
             flash_msg= 'Este correo electrónico ya está en uso, prueba con otro.'
         elif edad < 18:
             flash_msg= 'No es posible crear la cuenta en este momento.'
@@ -164,7 +175,6 @@ def registro():
             return render_template('registro.html', nombre_completo= nombre_completo, username= username, email= email,
                                    fechaNac= fechaNac, contraseña= contraseña, contraseña2= contraseña2)
         else:
-            cur= mysql.connection.cursor()
             cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
                          VALUES (%s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
             mysql.connection.commit()
@@ -190,7 +200,6 @@ def add_post():
         titulo= request.form["titulo"]
         imagen= request.files["imagen"]
         descripcion= request.form["descripcion"]
-        id_usuario= current_user.id
         if imagen:
             # Guardar la imagen en el servidor
             filename = secure_filename(imagen.filename)
@@ -200,8 +209,8 @@ def add_post():
             image_path = filename
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO publi (titulo, imagen, descripcion, id_usuario) VALUES (%s, %s, %s,  %s)", 
-                    (titulo, image_path, descripcion, id_usuario))
+        cur.execute("INSERT INTO publi (titulo, imagen, descripcion, id_usuario) VALUES (%s, %s, %s)", 
+                    (titulo, image_path, descripcion))
         mysql.connection.commit()
 
     return redirect(url_for("muro"))
@@ -269,24 +278,57 @@ def suppot():
     id_usuario= current_user.id
     return render_template('support.html', id_usuario = id_usuario)
 
-def obtenerDatosUsuario(id_usuario):
-    cur= mysql.connection.cursor()
-    cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
-    datos= cur.fetchone()
-    cur.close()
-    return datos
-
 @app.route('/perfil/<id_usuario>')
 @login_required
 def perfil(id_usuario):
-    datos= obtenerDatosUsuario(id_usuario)
     cur= mysql.connection.cursor()
-    #cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
-    #datos= cur.fetchone()
+    cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
+    datos= cur.fetchone()
     cur.execute('SELECT * FROM publi WHERE id_usuario = %s', (id_usuario,))
     publicaciones= cur.fetchall()
     edad, fecha_perfil= calculoEdad(datos['fechaNac'])
+    cur.close()
     return render_template('perfil.html', datos = datos, publicaciones = publicaciones, edad = edad, fecha_perfil= fecha_perfil)
+
+@app.route('/editarPerfil', methods= ['GET', 'POST'])
+@login_required
+def editarPerfil():
+    cur= mysql.connection.cursor()
+    id_usuario= current_user.id
+    if request.method == 'POST':
+
+        nombre_completo= request.form['nombre_completo']
+        username= request.form['username']
+        email= request.form['email']
+        fotoPerfil= request.form['fotoPerfil']
+        fechaNac= request.form['fechaNac']
+        presentacion= request.form['presentacion']
+        ubicacion= request.form['ubicacion']
+        enlace= request.form['enlace']
+        mostrarSiNo= request.form['mostrarSiNo']
+
+        #cur.execute('SELECT * FROM usuario where username = %s AND id_usuario != %s', (username, id_usuario))
+        #username_existente= cur.fetchone()
+        if validarUsername(cur, username, id_usuario) == False:
+            flash('El nombre de usuario ya está en uso, prueba con otro.', 'error')
+            return render_template('editarPerfil.html', nombre_completo= nombre_completo, username= username, email= email, 
+                                    fotoPerfil= fotoPerfil, fechaNac= fechaNac, presentacion= presentacion, ubicacion= ubicacion,
+                                    enlace= enlace, mostrarSiNo= mostrarSiNo, id_usuario= id_usuario)
+        else:
+            cur.execute('''UPDATE usuario SET nombre_completo = %s, username = %s, fotoPerfil = %s, presentacion = %s,
+                            ubicacion = %s, enlace = %s, mostrarSiNo = %s WHERE id_usuario = %s''', (nombre_completo, username, fotoPerfil, 
+                                                                                    presentacion, ubicacion, enlace, mostrarSiNo, id_usuario))
+            mysql.connection.commit()
+            flash('Tu perfil fue actualizado.', 'succes')
+            cur.close()
+            return redirect(url_for('perfil', id_usuario= id_usuario))
+    else:
+        cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
+        datos= cur.fetchone()
+        cur.close()
+        return render_template('editarPerfil.html', nombre_completo= datos['nombre_completo'], username= datos['username'], 
+                               email= datos['email'], fotoPerfil= datos['fotoPerfil'], fechaNac= datos['fechaNac'], presentacion= datos['presentacion'], 
+                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
 
 if __name__ == '__main__':
     socketio.run(app)
