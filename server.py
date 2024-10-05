@@ -331,5 +331,5 @@ def editarPerfil():
                                ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
 
 if __name__ == '__main__':
-    socketio.run(app)
-    app.run(port=3000, debug=True)
+    socketio.run(app, debug= True)
+    #app.run(port=3000, debug=True)
