@@ -3,48 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ datos['username'] }} Perfil</title>
+    <title>{{ datos['username'] }} - Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    {% with messages= get_flashed_messages() %}
-        {% if messages %}
-            <ul>{% for message in messages %}</ul>
-                <li>{{ message }}</li>
-            <ul>{% endfor %}</ul>
-        {% endif %}
-    {% endwith %}
-    
-    {% if fotoPerfil %}
-    mostrar la q edito agrego
-    {% else %}
-    mostrar la predeterminada
-    {% endif %}
-    <img src="{{ url_for('static', filename='img/' + datos['fotoPerfil'])}}" alt="Imagen de perfil" max-width="20" max-height="20"><br>
-    {{ datos['nombre_completo'] }} @{{ datos['username'] }}<br>
-    {{ datos['presentacion'] }}<br>
-    {% if datos['mostrarSiNo'] == 'fecha'  %}
-        Fecha de nacimiento: {{ fecha_perfil }}<br>
-    {% elif datos['mostrarSiNo'] == 'edad' %}
-        Edad: {{ edad }}<br>
-    {% endif %}
-    Ubicación: {{ datos['ubicacion'] }}<br>
-    {{ datos['estrellas'] }}<br>
-    {{ datos['enlace'] }}<br>
-    {{ datos['email'] }}<br>
+    <header>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </header>
 
-    {% for publicacion in publicaciones %}
-        {{ publicacion['fotoVino'] }}
-        {{ publicacion['tipoVino'] }}
-        {{ publicacion['nombreVino'] }}
-        {{ publicacion['precio'] }}
-        {{ publicacion['origenAño'] }}
-        {{ publicacion['origenUva'] }}
-        {{ publicacion['descripcion'] }}
-    {% endfor %}
+    <main class="profile-container">
+        <section class="profile-header">
+            {% if fotoPerfil %}
+                <img src="{{ url_for('static', filename='img/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" class="profile-pic">
+            {% else %}
+                <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+            {% endif %}
 
-    {% if current_user.id == datos['id_usuario'] %}
-        <a href="{{url_for('editarPerfil')}}">Editar perfil</a><br>
-        <a href="{{url_for('logout')}}">Cerrar sesión</a><br>
-    {% endif %}
+            <h2>{{ datos['nombre_completo'] }} @{{ datos['username'] }}</h2>
+
+            <p>{{ datos['presentacion'] }}</p>
+
+            {% if datos['mostrarSiNo'] == 'fecha' %}
+                <p>Fecha de nacimiento: {{ fecha_perfil }}</p>
+            {% elif datos['mostrarSiNo'] == 'edad' %}
+                <p>Edad: {{ edad }}</p>
+            {% endif %}
+
+            <p>Ubicación: {{ datos['ubicacion'] }}</p>
+
+            <p>Email: <a href="mailto:{{ datos['email'] }}">{{ datos['email'] }}</a></p>
+
+            <p>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></p>
+
+            <p>Estrellas: {{ datos['estrellas'] }}</p><!--preguntar a chatgpt como puede ser el sistema de las estrellas-->
+
+            {% if current_user.id == datos['id_usuario'] %}
+                <a href="{{ url_for('editarPerfil') }}">Editar perfil</a><br>
+            {% endif %}
+
+        </section>
+
+        <section class="publicaciones">
+            {% for publicacion in publicaciones %}
+                <div class="publicacion">
+                    <img src="{{ url_for('static', filename='img/' + publicacion['fotoVino']) }}" alt="">
+                    <h4>{{ publicacion['tipoVino'] }} - {{ publicacion['nombreVino'] }}</h4>
+                    <p>Precio: {{ publicacion['precio'] }}</p>
+                    <p>Año: {{ publicacion['origenAño'] }}</p>
+                    <p>Uva: {{ publicacion['origenUva'] }}</p>
+                    <p>Descripción: {{ publicacion['descripcion'] }}</p>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
 </body>
 </html>
