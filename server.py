@@ -187,11 +187,16 @@ def registro():
     else:
         return render_template('registro.html')
 
-@app.route('/logout')
+@app.route('/logout', methods= ["POST", "GET"])
+@login_required
 def logout():
-    logout_user()
-    flash('Ha cerrado sesión', 'succes')
-    return redirect(url_for('login'))
+    if request.method == "POST":
+        logout_user()
+        flash('Ha cerrado sesión', 'succes')
+        return redirect(url_for('login'))
+    else:
+        flash('No fue posible cerrar sesión', 'error')
+        return redirect(url_for('muro'))
 
 @app.route("/add_post",methods= ["GET", "POST"])
 #@login_required
@@ -209,7 +214,7 @@ def add_post():
             image_path = filename
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO publi (titulo, imagen, descripcion, id_usuario) VALUES (%s, %s, %s)", 
+        cur.execute("INSERT INTO publi (titulo, imagen, descripcion) VALUES (%s, %s, %s)", 
                     (titulo, image_path, descripcion))
         mysql.connection.commit()
 
@@ -275,8 +280,7 @@ def muro():
 @app.route('/support')
 #@login_required
 def suppot():
-    id_usuario= current_user.id
-    return render_template('support.html', id_usuario = id_usuario)
+    return render_template('support.html')
 
 @app.route('/perfil/<id_usuario>')
 @login_required
@@ -300,7 +304,7 @@ def editarPerfil():
         nombre_completo= request.form['nombre_completo']
         username= request.form['username']
         email= request.form['email']
-        fotoPerfil= request.form['fotoPerfil']
+        fotoPerfil= request.files['fotoPerfil']
         fechaNac= request.form['fechaNac']
         presentacion= request.form['presentacion']
         ubicacion= request.form['ubicacion']
