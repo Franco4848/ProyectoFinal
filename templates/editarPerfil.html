@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar perfil</title>
+</head>
+<body>
+    <div id="myModal" class='modal'>
+        <div class="modal-content">
+            <form action="/editarPerfil" method="POST" enctype="multipart/form-data">
+        
+                <label for="fotoPerfil">Cambiar foto de perfil.</label><br>
+                <img src="{{ fotoPerfil }}"><br>
+                <input type="file" accept="image/*" name="fotoPerfil" id="fotoPerfil"><br>
+        
+                <label for="nombre_completo">Nombre completo:</label><br>
+                <input type="text" name="nombre_completo" id="nombre_completo" value="{{ nombre_completo }}" placeholder='El nombre es requerido' maxlength="50" required><br>
+                
+                <label for="username">Nombre de usuario:</label><br>
+                <input type="text" name="username" id="username" value="{{ username }}" placeholder="El username es requerido" minlength="5" maxlength="12" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required><br>
+        
+                <label for="email">Correo electrónico:</label><br>
+                <input type="email" name="email" id="email" value="{{ email }}" title='No se puede editar' readonly><br>
+        
+                <label for="fechaNac">Fecha de nacimiento:</label><br>
+                <input type="date" name="fechaNac" id="fechaNac" value="{{ fechaNac }}" title="No se puede editar" readonly><br>
+              
+                <label for="mostrarSiNo">En perfil público:</label><br>
+                <select id="mostrarSiNo" name="mostrarSiNo" title='Obligatorio' required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="fecha"  {% if mostrarSiNo == 'fecha' %} selected {% endif %}>Mostrar fecha de nacimiento</option>
+                    <option value="edad" {% if mostrarSiNo == 'edad' %} selected {% endif %}>Mostrar edad</option>
+                    <option value="ninguna" {% if mostrarSiNo == 'ninguna' %} selected {% endif %}>No mostrar</option>
+                </select><br>
+        
+                <label for="presentacion">Presentación:</label><br> 
+                <input type="text"  name="presentacion" id="presentacion" value="{{ presentacion }}" placeholder="Incluye tus intereses" title="Opcional" maxlength="180"><br>
+                
+                <label for="ubicación">Ubicación:</label><br>
+                <input type="text" name="ubicacion" id="ubicacion" value="{{ ubicacion }}" placeholder='Ciudad y país' title="Opcional" pattern="[A-Za-zÀ-ÿ\s,-.()]+" ><br>
+                
+                <label for="enlace">Enlace:</label><br>
+                <input type="url" name="enlace" id="enlace" value="{{ enlace }}"><br>
+        
+                <button type="submit" value="Submit">Guardar cambios</button><br>
+                <p> Los datos se incluirán en tu perfil</p>
+        
+                {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul>{% for message in messages %}</ul>
+                                <li>{{ message }}</li>
+                            <ul>{% endfor %}</ul>
+                        {% endif %}
+                {% endwith %}
+        
+            </form>
+        
+            <button><b><a href="{{url_for('editarPerfil')}}" >Reestablecer datos</a></b></button><br>
+            <button onclick="closeModal(cerrar1)" ><b>Cancelar</a></b></button><br>
+        
+        </div>
+    </div>
+</body>
+</html>
