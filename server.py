@@ -35,6 +35,11 @@ UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+
+PERFIL_UPLOADS= os.path.join('static', 'perfil_uploads')
+ALLOWED_EXTENSIONS= {'jpg'}
+app.config['PERFIL_UPLOADS'] = PERFIL_UPLOADS
+
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
