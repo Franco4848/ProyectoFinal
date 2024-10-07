@@ -72,7 +72,7 @@ a{
     color: #804b4b;
 }
 
-button {
+.confirmar {
     background-color: #361212;
     padding: 15px 30px;
     color: #ffffff;
@@ -83,11 +83,6 @@ button {
     border-radius: 10px;
 }
 
-button a {
-    text-decoration: none;
-    color: #fff;
-}
-
-button:hover {
+.confirmar:hover {
     background-color: #804b4b;
 }
