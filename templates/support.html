@@ -19,10 +19,10 @@
         <li class="itemNav"><i class='bx bx-user'></i><a href="/perfil/{{ current_user.id }}">Perfil</a></li>
         <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li>
     </ul>
-    <div id="myModal" style="display: none;">
+    <div id="myModal" class='modal'>
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>¿Desea cerrar sesión?</p>
+            <p>¿Desea cerrar la sesión?</p>
             <form action="/logout" method="POST"> 
                 <button type="submit"><b>Confirmar</b></button>
             </form>
