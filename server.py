@@ -197,7 +197,7 @@ def registro():
 def logout():
     if request.method == "POST":
         logout_user()
-        flash('Ha cerrado sesión', 'succes')
+        flash('Ha cerrado sesión', 'success')
         return redirect(url_for('login'))
     else:
         flash('No fue posible cerrar sesión', 'error')
@@ -299,13 +299,17 @@ def perfil(id_usuario):
     cur.close()
     return render_template('perfil.html', datos = datos, publicaciones = publicaciones, edad = edad, fecha_perfil= fecha_perfil)
 
+def extension_permitida(archivo):
+    return '.' in archivo and \
+           archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/editarPerfil', methods= ['GET', 'POST'])
 @login_required
 def editarPerfil():
     cur= mysql.connection.cursor()
     id_usuario= current_user.id
     if request.method == 'POST':
-
         nombre_completo= request.form['nombre_completo']
         username= request.form['username']
         email= request.form['email']
@@ -315,20 +319,33 @@ def editarPerfil():
         ubicacion= request.form['ubicacion']
         enlace= request.form['enlace']
         mostrarSiNo= request.form['mostrarSiNo']
+        eliminar_foto= request.form.get('eliminar_foto')
+        foto_actual= request.form['fotoActual']
 
-        #cur.execute('SELECT * FROM usuario where username = %s AND id_usuario != %s', (username, id_usuario))
-        #username_existente= cur.fetchone()
+        if eliminar_foto:
+            os.remove(os.path.join(app.config['PERFIL_UPLOADS'], foto_actual ))
+            filename = None
+        elif fotoPerfil and fotoPerfil.filename != '' :
+            if extension_permitida(fotoPerfil.filename):
+                filename= secure_filename(fotoPerfil.filename)
+                fotoPerfil.save(os.path.join(app.config['PERFIL_UPLOADS'], filename))
+            else:
+                flash('Formato de imagen no permitido.', 'error')
+                return redirect(url_for('editarPerfil'))
+        else:
+            filename= foto_actual
+            
         if validarUsername(cur, username, id_usuario) == False:
             flash('El nombre de usuario ya está en uso, prueba con otro.', 'error')
             return render_template('editarPerfil.html', nombre_completo= nombre_completo, username= username, email= email, 
-                                    fotoPerfil= fotoPerfil, fechaNac= fechaNac, presentacion= presentacion, ubicacion= ubicacion,
+                                    fotoPerfil= filename, fechaNac= fechaNac, presentacion= presentacion, ubicacion= ubicacion,
                                     enlace= enlace, mostrarSiNo= mostrarSiNo, id_usuario= id_usuario)
         else:
             cur.execute('''UPDATE usuario SET nombre_completo = %s, username = %s, fotoPerfil = %s, presentacion = %s,
-                            ubicacion = %s, enlace = %s, mostrarSiNo = %s WHERE id_usuario = %s''', (nombre_completo, username, fotoPerfil, 
+                            ubicacion = %s, enlace = %s, mostrarSiNo = %s WHERE id_usuario = %s''', (nombre_completo, username, filename, 
                                                                                     presentacion, ubicacion, enlace, mostrarSiNo, id_usuario))
             mysql.connection.commit()
-            flash('Tu perfil fue actualizado.', 'succes')
+            flash('Tu perfil fue actualizado.', 'success')
             cur.close()
             return redirect(url_for('perfil', id_usuario= id_usuario))
     else:
