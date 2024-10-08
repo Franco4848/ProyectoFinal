@@ -6,13 +6,18 @@
     <title>Editar perfil</title>
 </head>
 <body>
-    <div id="myModal" class='modal'>
-        <div class="modal-content">
+            <h1>Editar Perfil</h1>
             <form action="/editarPerfil" method="POST" enctype="multipart/form-data">
         
-                <label for="fotoPerfil">Cambiar foto de perfil.</label><br>
-                <img src="{{ fotoPerfil }}"><br>
+                <label for="fotoPerfil">Cambiar foto de perfil:</label><br>
+                {% if fotoPerfil %}
+                    <img src="{{ url_for('static', filename='perfil_uploads/' + fotoPerfil) }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+                    <input type="checkbox" name="eliminar_foto" value="True"> Eliminar foto
+                {% else %}
+                    <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+                {% endif %}
                 <input type="file" accept="image/*" name="fotoPerfil" id="fotoPerfil"><br>
+                <input type="text" name="fotoActual" value="{{ fotoPerfil }}" hidden>
         
                 <label for="nombre_completo">Nombre completo:</label><br>
                 <input type="text" name="nombre_completo" id="nombre_completo" value="{{ nombre_completo }}" placeholder='El nombre es requerido' maxlength="50" required><br>
@@ -37,13 +42,13 @@
                 <label for="presentacion">Presentación:</label><br> 
                 <input type="text"  name="presentacion" id="presentacion" value="{{ presentacion }}" placeholder="Incluye tus intereses" title="Opcional" maxlength="180"><br>
                 
-                <label for="ubicación">Ubicación:</label><br>
+                <label for="ubicacion">Ubicación:</label><br>
                 <input type="text" name="ubicacion" id="ubicacion" value="{{ ubicacion }}" placeholder='Ciudad y país' title="Opcional" pattern="[A-Za-zÀ-ÿ\s,-.()]+" ><br>
                 
                 <label for="enlace">Enlace:</label><br>
                 <input type="url" name="enlace" id="enlace" value="{{ enlace }}"><br>
         
-                <button type="submit" value="Submit">Guardar cambios</button><br>
+                <button type="submit" class="guardarCambios" value="Submit">Guardar cambios</button><br>
                 <p> Los datos se incluirán en tu perfil</p>
         
                 {% with messages = get_flashed_messages() %}
@@ -57,7 +62,7 @@
             </form>
         
             <button><b><a href="{{url_for('editarPerfil')}}" >Reestablecer datos</a></b></button><br>
-            <button onclick="closeModal(cerrar1)" ><b>Cancelar</a></b></button><br>
+            <button><b><a href="/perfil/{{ current_user.id }}">Cancelar</a></b></button><br>
         
         </div>
     </div>

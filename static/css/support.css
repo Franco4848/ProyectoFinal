@@ -59,7 +59,7 @@ a{
 }
 
 .close {
-    color: #361212;
+    color: #000000;
     position: absolute;
     top: 10px;
     right: 20px;
@@ -69,11 +69,11 @@ a{
 }
 
 .close:hover, .close:focus {
-    color: #804b4b;
+    color: #363030;
 }
 
 .confirmar {
-    background-color: #361212;
+    background-color: #000000;
     padding: 15px 30px;
     color: #ffffff;
     border: none;
@@ -84,5 +84,5 @@ a{
 }
 
 .confirmar:hover {
-    background-color: #804b4b;
+    background-color: #363030;
 }
