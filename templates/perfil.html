@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ datos['username'] }} - Perfil</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
 </head>
 <body>
+    {% include 'support.html' %}
+
     <header>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -21,8 +23,8 @@
 
     <main class="profile-container">
         <section class="profile-header">
-            {% if fotoPerfil %}
-                <img src="{{ url_for('static', filename='img/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" class="profile-pic">
+            {% if datos['fotoPerfil'] %}
+                <img src="{{ url_for('static', filename='perfil_uploads/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
             {% else %}
                 <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" style="max-width: 130px; max-height: 130px;" class="profile-pic">
             {% endif %}
@@ -39,11 +41,13 @@
 
             <p>Ubicación: {{ datos['ubicacion'] }}</p>
 
-            <p>Email: <a href="mailto:{{ datos['email'] }}">{{ datos['email'] }}</a></p>
+            <p>Email: <a href="mailto:{{datos['email']}}">{{ datos['email'] }}</a></p>
 
             <p>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></p>
 
-            <p>Estrellas: {{ datos['estrellas'] }}</p><!--preguntar a chatgpt como puede ser el sistema de las estrellas-->
+            <p>Estrellas: {{ datos['estrellas'] }}</p><!--preguntar a chatgpt como puede ser el sistema de las estrellas pero en 
+            mi opinion deberia ser en una pestaña aparte despues de una compra
+            -->
 
             {% if current_user.id == datos['id_usuario'] %}
                 <a href="{{ url_for('editarPerfil') }}">Editar perfil</a><br>
@@ -51,7 +55,7 @@
 
         </section>
 
-        <section class="publicaciones">
+        <section class="publicaciones"><!--gacer modal aca tamb para mostrar publicacion en grande-->
             {% for publicacion in publicaciones %}
                 <div class="publicacion">
                     <img src="{{ url_for('static', filename='img/' + publicacion['fotoVino']) }}" alt="">
@@ -63,6 +67,6 @@
                 </div>
             {% endfor %}
         </section>
-    </main>
+    </main
 </body>
 </html>
