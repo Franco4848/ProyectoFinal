@@ -203,6 +203,7 @@ def add_post():
         titulo= request.form["titulo"]
         imagen= request.files["imagen"]
         descripcion= request.form["descripcion"]
+        id_usuario = current_user.id
         if imagen:
             # Guardar la imagen en el servidor
             filename = secure_filename(imagen.filename)
@@ -212,8 +213,8 @@ def add_post():
             image_path = filename
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO publi (titulo, imagen, descripcion) VALUES (%s, %s, %s)", 
-                    (titulo, image_path, descripcion))
+        cur.execute("INSERT INTO publi (titulo, imagen, descripcion, id_usuario) VALUES (%s, %s, %s, %s)", 
+                    (titulo, image_path, descripcion, id_usuario))
         mysql.connection.commit()
 
     return redirect(url_for("muro"))
