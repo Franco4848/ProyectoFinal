@@ -2,6 +2,7 @@
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("openModal");
 var span = document.getElementsByClassName("close")[0];
+var modal_publicacion = document.getElementById('modal-publicacion');
 
 // Cuando se hace clic en el botón, se muestra el modal
 btn.onclick = function() {
@@ -17,5 +18,9 @@ span.onclick = function() {
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+  }
+  if (event.target == modal_publicacion) {
+    var id_usuario = "{{datos['id_usuario']}}";
+    window.location.href = '/perfil/' + (id_usuario);
   }
 }
