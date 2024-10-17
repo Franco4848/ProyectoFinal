@@ -4,6 +4,15 @@ body {
     box-sizing: border-box;
 }
 
+.contenedor-main {
+    display: flex;
+} 
+
+.contenido-perfil{
+    flex: 2;
+    margin-left: 190px;
+}
+
 .modal-publicacion {
     display: none; 
     position: fixed;
@@ -35,7 +44,7 @@ body {
     padding: 10px;
 }
 
-a {
+.contenido-perfil a {
     text-decoration: none;
     color:rgb(0, 0, 0)
 }
@@ -50,8 +59,8 @@ a {
 
 .foto-general{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 200px; 
-    height: 250px;
+    width: 185px; 
+    height: 235px;
     border-radius: 15px;
 }
 
@@ -64,39 +73,38 @@ a {
 .seccion-publicaciones{
     z-index: 9;
     background-color: #eeeeee;
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
+    padding-right: 18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 18px;
+    max-width: 1143px;
 }
 
 .publicaciones{
-    display: flex;
-    flex-direction: row;
+    max-width: 1125px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
 }
-
-/*.margen-publicacion{
-    margin-right: 20px;
-}*/
 
 .publicacion{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-color: #ffffff;
     border-radius: 15px;
-    padding: 10px;
+    padding: 12px;
     position: relative;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 #publicacion-contenido{
-    max-width: 200px;
-    min-height: 316px;
-    max-height: 316px;
+    max-width: 185px;
+    max-height: 298px;
+    min-height: 298px;
 }
 
 .titulo{
     color: #000000;
-    margin-top: 8px;
+    margin-top: 5px;
     margin-bottom: 0;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -184,7 +192,7 @@ a {
     margin-bottom: 10px;
 }
 
-button{
+.contenido-perfil button{
     background-color: #000000;
     border: none;
     padding: 5px 10px; 
@@ -200,7 +208,7 @@ button{
     justify-content: center;
 }
 
-button:hover{
+.contenido-perfil button:hover{
     background-color: rgb(125, 125, 125);
 }
 
