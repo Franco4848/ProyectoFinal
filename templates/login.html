@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Iniciar sesión</title>
 </head>
 <body>
         <form action="/login" method="POST">
@@ -26,7 +27,7 @@
             <button type="submit">Ingresar</button><br>
             
         </form>
-        <b>¿No tienes una cuenta? </b><a href="{{url_for ('registro')}}">Regístrate</a><br>
+        <b>¿No tienes una cuenta? </b><button onclick="window.location.href='/registro'">Regístrate</a></button><br>
     </div>
 </body>
 </html>
