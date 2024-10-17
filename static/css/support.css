@@ -1,9 +1,8 @@
-
-
-body{
+.body-barra{
     margin:0;
     font-family: poppins ;
-
+    z-index: 100;
+    position: fixed;
 }
 
 .barraNav{
@@ -25,9 +24,11 @@ body{
     border-radius: 10px;
     
 }
-a{
+
+.barraNav a{
     text-decoration: none;
     margin-left: 20px;
+    color: black;
 }
 
 .itemNav .supp{
@@ -36,6 +37,7 @@ a{
 
 
 .modal {
+    z-index: 10000;
     display: none;
     position: fixed;
     left: 0;
