@@ -5,9 +5,9 @@
 *::after{
     box-sizing: border-box;
 }
-:root{
-    /* color-scheme: ligth dark; */
-}
+/*:root{
+    /* color-scheme: ligth dark; 
+}*/
 
 body{
     margin: 0;
