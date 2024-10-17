@@ -3,70 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ datos['username'] }} - Perfil</title>
+    <title>@{{ datos['username'] }} - Perfil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    {% include 'support.html' %}
+    {% if datos %}
+        <main class="contenido">
+            <section class="seccion-perfil">
+                <header>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class="mensaje-flash">
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                </header>
+                <div class="datos-perfil">
 
-    <header>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flash-messages">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-    </header>
+                    {% if datos['fotoPerfil'] %}
+                        <img src="{{ url_for('static', filename='perfil_uploads/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" class="foto-perfil">
+                    {% else %}
+                        <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" class="foto-perfil">
+                    {% endif %}
 
-    <main class="profile-container">
-        <section class="profile-header">
-            {% if datos['fotoPerfil'] %}
-                <img src="{{ url_for('static', filename='perfil_uploads/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
-            {% else %}
-                <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" style="max-width: 130px; max-height: 130px;" class="profile-pic">
-            {% endif %}
+                    <h2>{{ datos['nombre_completo'] }} @{{ datos['username'] }}</h2>
 
-            <h2>{{ datos['nombre_completo'] }} @{{ datos['username'] }}</h2>
+                    <h3>{{ datos['presentacion'] }}</h3>
 
-            <p>{{ datos['presentacion'] }}</p>
+                    {% if datos['mostrarSiNo'] == 'fecha' %}
+                        <h4>Fecha de nacimiento: {{ fecha_perfil }}</h4>
+                    {% elif datos['mostrarSiNo'] == 'edad' %}
+                        <h4>Edad: {{ edad }}</h4>
+                    {% endif %}
 
-            {% if datos['mostrarSiNo'] == 'fecha' %}
-                <p>Fecha de nacimiento: {{ fecha_perfil }}</p>
-            {% elif datos['mostrarSiNo'] == 'edad' %}
-                <p>Edad: {{ edad }}</p>
-            {% endif %}
+                    {% if datos['ubicacion'] %}
+                        <h4>Ubicación: {{ datos['ubicacion'] }}</h4>
+                    {%endif%}
 
-            <p>Ubicación: {{ datos['ubicacion'] }}</p>
+                    {% if datos['email'] %}
+                        <h4>Email: <a href="mailto:{{datos['email']}}">{{ datos['email'] }}</a></h4>
+                    {% endif %}
+                
+                    {% if datos['enlace'] %}
+                        <h4>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></h4>
+                    {% endif %}
 
-            <p>Email: <a href="mailto:{{datos['email']}}">{{ datos['email'] }}</a></p>
+                    <!--<p>Estrellas: {{ datos['estrellas'] }}</p>-->
 
-            <p>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></p>
+                    {% if current_user.id == datos['id_usuario'] %}
+                        <button onclick="window.location.href='/editarPerfil'">Editar perfil</button><br>
+                    {% endif %}
 
-            <p>Estrellas: {{ datos['estrellas'] }}</p><!--preguntar a chatgpt como puede ser el sistema de las estrellas pero en 
-            mi opinion deberia ser en una pestaña aparte despues de una compra
-            -->
-
-            {% if current_user.id == datos['id_usuario'] %}
-                <a href="{{ url_for('editarPerfil') }}">Editar perfil</a><br>
-            {% endif %}
-
-        </section>
-
-        <section class="publicaciones"><!--gacer modal aca tamb para mostrar publicacion en grande-->
-            {% for publicacion in publicaciones %}
-                <div class="publicacion">
-                    <img src="{{ url_for('static', filename='img/' + publicacion['fotoVino']) }}" alt="">
-                    <h4>{{ publicacion['tipoVino'] }} - {{ publicacion['nombreVino'] }}</h4>
-                    <p>Precio: {{ publicacion['precio'] }}</p>
-                    <p>Año: {{ publicacion['origenAño'] }}</p>
-                    <p>Uva: {{ publicacion['origenUva'] }}</p>
-                    <p>Descripción: {{ publicacion['descripcion'] }}</p>
                 </div>
-            {% endfor %}
-        </section>
-    </main
+            </section>
+
+            <section class="seccion-publicaciones">
+                <div class="publicaciones">
+                    {% if publicaciones %}
+                        {% for publicacion in publicaciones %}
+                            <div class="publicacion" onclick="window.location.href='/perfil/{{datos.id_usuario}}/{{publicacion.publi_id}}'">
+                                <div id="publicacion-contenido">
+                                    <img src="{{ url_for('static', filename='uploads/' + publicacion['imagen']) }}" alt="{{ publicacion['titulo'] }}" class="foto-general">
+                                    <h2 class="titulo">{{ publicacion['titulo'] }}</h2>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay publicaciones disponibles.</p>
+                    {% endif %}
+                </div>
+            </section>
+            {% if publicacion_individual %}
+                <div class="modal-publicacion" id="modal-publicacion" style="display: block;" >
+                    <div class="modal-contenido-publicacion">
+                        <div class="info-publicacion">
+                            <h2 class="username">@{{ datos['username'] }}</h2>
+                            <img src="{{ url_for('static', filename='uploads/' + publicacion_individual['imagen']) }}" alt="{{ publicacion_individual['titulo'] }}" class="foto-detallada">
+                            <h2 class="titulo2">{{ publicacion_individual['titulo'] }}</h2>
+                            <h4 class="descripcion">{{ publicacion_individual['descripcion'] }}</h4>
+                        </div>
+                        <div class="seccion-comentarios">
+                            <button class="boton-volver" onclick="window.location.href='/perfil/{{ datos.id_usuario }}'" ><i class="fa-solid fa-xmark"></i></button>
+                            <h3>Comentarios</h3>
+                            <div class="comentarios" >
+                                {% if publicacion_individual['comentarios'] %}
+                                    {% for comentario in publicacion_individual['comentarios'] %}
+                                        <div>
+                                            <h4 class="comentario">{{ comentario }}</h4>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <h4 class="comentario">No hay comentarios.</h4>
+                                {% endif %}
+                            </div>
+                            <form action="/add_comment/{{ publicacion_individual['publi_id'] }}" method="post" class="form-comentario">
+                                <input type="text" name="descripcion" placeholder="Escribe un comentario">
+                                <button type="submit"><i class="fa-solid fa-caret-right"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </main>
+        <script>
+            window.onclick = function(event) {
+                var modal = document.getElementById('modal-publicacion');
+                if (event.target == modal) {
+                    var id_usuario = "{{datos['id_usuario']}}";
+                    window.location.href = '/perfil/' + (id_usuario);
+                }
+            }
+        </script>
+    {% else %}
+        <h1>No se encontró el perfil.</h1>
+    {% endif %}
 </body>
 </html>
