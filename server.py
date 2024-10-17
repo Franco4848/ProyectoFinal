@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_socketio import SocketIO, send
+import pymysql
+pymysql.install_as_MySQLdb()
 
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
@@ -16,6 +18,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 load_dotenv()
+
+@app.route("/")
+def main():
+    return render_template("index.html")
 
 @app.route('/chat')
 #@login_required
@@ -119,7 +125,7 @@ def validarUsername(cur, username, id_usuario=None):
 
 def calculoEdad(fechaNac):
     fecha= datetime.strptime(str(fechaNac), '%Y-%m-%d')
-    fecha_perfil= f'{fecha.day} de {fecha.strftime('%B')} de {fecha.year}'
+    fecha_perfil= f'{fecha.day} de {fecha.strftime("%B")} de {fecha.year}'
     edad = datetime.now().year - fecha.year
     if datetime.now().month < fecha.month:
         edad -= 1

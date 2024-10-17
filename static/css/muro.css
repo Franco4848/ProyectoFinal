@@ -6,9 +6,16 @@ body {
     background-color: #f0f0f0;
 }
 
+/* Contenedor principal que envuelve el navbar y el muro */
+.main-container {
+    display: flex;
+    height: 100vh; /* Hacemos que el contenedor ocupe toda la altura de la ventana */
+} 
+
 .container {
+    flex: 1; /* Ocupa el resto del espacio disponible */
     max-width: 1200px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -131,3 +138,38 @@ button:hover {
 #openModal:hover {
     background-color: #0056b3;
 }
+
+
+/* css nav bar */
+
+.barraNav{
+    margin: 0;
+    padding: 20px;
+    background-color: #000;
+    width: 150px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemNav{
+    padding: 10px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    text-decoration: none;
+    background-color: #eee;
+    width: 120px;
+    font-size: 18px;
+    border-radius: 10px;
+    
+}
+a{
+    text-decoration: none;
+    margin-left: 10px;
+    color: black;
+}
+
+.itemNav .supp{
+    margin-top: auto; 
+}
+
