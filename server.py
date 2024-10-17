@@ -76,6 +76,8 @@ def load_user(user_id):
 
 @app.route('/login', methods= ["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('muro'))
     if request.method == 'POST':
         email= request.form['email']
         contraseña = request.form["contraseña"]
@@ -115,17 +117,6 @@ def validarUsername(cur, username, id_usuario=None):
     else:
         return True
 
-
-#def validarUsername(username):
-    cur= mysql.connection.cursor()
-    cur.execute('SELECT * FROM usuario where username = %s', (username,))
-    username_existente= cur.fetchone()
-    cur.close()
-    if username_existente:
-        return False
-    else: 
-        return True
-
 def calculoEdad(fechaNac):
     fecha= datetime.strptime(str(fechaNac), '%Y-%m-%d')
     fecha_perfil= f'{fecha.day} de {fecha.strftime('%B')} de {fecha.year}'
@@ -153,6 +144,8 @@ def validarContraseña(contraseña):
     
 @app.route('/registro', methods= ["GET", "POST"])
 def registro():
+    if current_user.is_authenticated:
+        return redirect(url_for('muro'))
     cur= mysql.connection.cursor()
     if request.method == 'POST':
         nombre_completo= request.form['nombre_completo']
@@ -234,8 +227,8 @@ def add_comment(publi_id):
         cur.execute("INSERT INTO comentarios (descripcion, publi_id)VALUES(%s, %s)",
         (descripcion,publi_id))
         mysql.connection.commit()
-    return redirect(url_for("muro"))
-
+    return redirect(request.referrer or url_for('muro'))
+#si haces un comentario vacio se guarda igual
 
 
 @app.route('/comentarios')
@@ -287,28 +280,68 @@ def muro():
 def suppot():
     return render_template('support.html')
 
-@app.route('/perfil/<id_usuario>')
-@login_required
-def perfil(id_usuario):
-    cur= mysql.connection.cursor()
-    cur.execute('SELECT * FROM usuario WHERE id_usuario = %s', (id_usuario,))
-    datos= cur.fetchone()
-    cur.execute('SELECT * FROM publi WHERE id_usuario = %s', (id_usuario,))
-    publicaciones= cur.fetchall()
-    edad, fecha_perfil= calculoEdad(datos['fechaNac'])
-    cur.close()
-    return render_template('perfil.html', datos = datos, publicaciones = publicaciones, edad = edad, fecha_perfil= fecha_perfil)
-
 def extension_permitida(archivo):
     return '.' in archivo and \
            archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+@app.route('/perfil/<id_usuario>', defaults= {'id_publicacion' : None})
+@app.route('/perfil/<id_usuario>/<id_publicacion>')
+@login_required
+def perfil(id_usuario, id_publicacion):
+
+    cur = mysql.connection.cursor()
+    cur.execute('''
+        SELECT u.*, p.id AS pub_id, p.titulo, p.imagen, p.descripcion, c.descripcion AS comentario 
+        FROM usuario u 
+        LEFT JOIN publi p ON u.id_usuario = p.id_usuario 
+        LEFT JOIN comentarios c ON p.id = c.publi_id 
+        WHERE u.id_usuario = %s
+    ''', (id_usuario,))
+    resultados= cur.fetchall()
+    cur.close()
+
+    if resultados:
+        usuario= resultados[0]
+        publicaciones_dict= {}
+        publicaciones_list= []
+
+        for resultado in resultados:
+            publi_id= resultado['pub_id']
+
+            if publi_id is not None and publi_id not in publicaciones_dict:
+                publicaciones_dict[publi_id] = {
+                        'publi_id': publi_id,
+                        'titulo': resultado['titulo'],
+                        'imagen': resultado['imagen'],
+                        'descripcion': resultado['descripcion'],
+                        'comentarios': []
+                }
+                publicaciones_list.append(publicaciones_dict[publi_id])
+
+            if resultado['comentario']:
+                publicaciones_dict[publi_id]['comentarios'].append(resultado['comentario'])
+
+        edad, fecha_perfil = calculoEdad(usuario['fechaNac'])
+        
+        publicacion_individual = None
+        if id_publicacion:
+            for publi in publicaciones_list:
+                if int(publi['publi_id']) == int(id_publicacion):
+                    publicacion_individual= publi
+                    break
+
+        return render_template('perfil.html', datos= usuario, publicaciones = publicaciones_list, 
+                            edad = edad, fecha_perfil = fecha_perfil, publicacion_individual = publicacion_individual)
+    else:
+        return render_template('perfil.html', datos= [])
 
 @app.route('/editarPerfil', methods= ['GET', 'POST'])
 @login_required
 def editarPerfil():
     cur= mysql.connection.cursor()
     id_usuario= current_user.id
+
     if request.method == 'POST':
         nombre_completo= request.form['nombre_completo']
         username= request.form['username']
