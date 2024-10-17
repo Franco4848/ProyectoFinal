@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1e0d26; 
+    color: #333;
+}
+
+.barraNav {
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff; 
+    width: 250px;
+    height: 100vh;
+    position: fixed; 
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+a{
+    margin-left: 270px;
+    text-align: left;
+    padding: 20px 0;
+    color: #ffffff; 
+    width: 100%;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+        transition: background-color 0.3s
+}
+
+h1 {
+    margin-left: 270px;
+    text-align: left;
+    padding: 20px 0;
+    color: #ffffff; 
+}
+
+h2 {
+    color: #7B2A2A;
+    margin: 10px 0;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+input[type="text"], 
+input[type="number"] {
+    display: block;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, 
+input[type="number"]:focus {
+    border-color: #7B2A2A;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s; 
+}
+
+button:hover {
+    background-color: #cdcdcb; /* Color más oscuro al pasar el ratón */
+}
+
+#results {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.itemNav {
+    padding: 15px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    background-color: #eee;
+    width: 200px;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.itemNav:hover {
+    background-color: #d5b8b8;
+    transform: scale(1.02);
+}
+
+.itemNav a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px; 
+    display: block; 
+}
+
+.itemNav .supp {
+    margin-top: 120px;
+}
+
+

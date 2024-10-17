@@ -36,3 +36,11 @@ ALTER TABLE publi
 ADD COLUMN id_usuario INT, 
 ADD CONSTRAINT fk_usuario 
 FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+
+CREATE TABLE vinos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    tipo VARCHAR(100),
+    pais VARCHAR(100),
+    precio DECIMAL(10, 2),
+);

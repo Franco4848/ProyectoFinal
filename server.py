@@ -281,6 +281,7 @@ def muro():
 def suppot():
     return render_template('support.html')
 
+<<<<<<< HEAD
 def extension_permitida(archivo):
     return '.' in archivo and \
            archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -393,3 +394,36 @@ def editarPerfil():
 if __name__ == '__main__':
     socketio.run(app, debug= True)
     #app.run(port=3000, debug=True)
+=======
+@app.route('/buscar')
+def buscar():
+    return render_template('buscar.html') 
+
+@app.route('/buscar_vinos', methods=['GET'])
+def buscar_vinos():
+    tipo = request.args.get('tipo', '')
+    pais = request.args.get('pais', '')
+    precio_min = request.args.get('precio_min', 0)
+    precio_max = request.args.get('precio_max', 99999)
+
+    query = """
+    SELECT nombre, tipo, pais, precio
+    FROM vinos
+    WHERE (tipo = %s OR %s = '')
+    AND (pais = %s OR %s = '')
+    AND precio BETWEEN %s AND %s
+    """
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (tipo, tipo, pais, pais, precio_min, precio_max))
+    vinos = cursor.fetchall()
+    cursor.close()
+
+    return render_template('busqueda.html', vinos=vinos)
+
+
+if __name__ == '__main__':
+    socketio.run(app)
+    app.run(port=3000, debug=True)
+
+>>>>>>> edd2f4ef98416e7a08526eeae2543870c8222b75
