@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_socketio import SocketIO, send
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -287,31 +287,26 @@ def muro():
 def suppot():
     return render_template('support.html')
 
-@app.route('/buscar')
+#---Buscador de vinos ---
+@app.route('/buscar', methods=['GET'])
 def buscar():
-    return render_template('buscar.html') 
-
-@app.route('/buscar_vinos', methods=['GET'])
-def buscar_vinos():
-    tipo = request.args.get('tipo', '')
-    pais = request.args.get('pais', '')
-    precio_min = request.args.get('precio_min', 0)
-    precio_max = request.args.get('precio_max', 99999)
-
-    query = """
-    SELECT nombre, tipo, pais, precio
-    FROM vinos
-    WHERE (tipo = %s OR %s = '')
-    AND (pais = %s OR %s = '')
-    AND precio BETWEEN %s AND %s
-    """
-    
+    query = request.args.get('query', '')
     cursor = mysql.connection.cursor()
-    cursor.execute(query, (tipo, tipo, pais, pais, precio_min, precio_max))
-    vinos = cursor.fetchall()
-    cursor.close()
-
-    return render_template('busqueda.html', vinos=vinos)
+    
+    cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
+                   (f'%{query}%', f'%{query}%'))
+    resultados = cursor.fetchall()
+    
+    publicaciones = []
+    for publi in resultados:
+        publicaciones.append({
+            "id": publi[0],
+            "titulo": publi[1],
+            "imagen": publi[2],
+            "descripcion": publi[3]
+        })
+    
+    return jsonify(publicaciones)
 
 
 def extension_permitida(archivo):
