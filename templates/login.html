@@ -3,31 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="/static/css/login.css">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap" rel="stylesheet">
     <title>Iniciar sesión</title>
 </head>
 <body>
-        <form action="/login" method="POST">
+    <section>
+        <div class="cuadrado" style="--i:0"></div>
+        <div class="cuadrado" style="--i:1"></div>
+        <div class="cuadrado" style="--i:2"></div>
+        <div class="loginBox">
+            <div class="loginContainer">
+            <div class="loginForm">
+                <h1>Inicia Sesión</h1>
+                <form action="/login" method="POST">
+                    <div class="labelBox"><label for="email">Correo electrónico:</label></div>
+                    <div class="inputBox"><input type="email" name="email" id="email" value='{{ email }}' placeholder="Email" required>
+                    </div>
+                    <div class="labelBox"><label for="contraseña">Contraseña:</label></div>
+                    <div class="inputBox"><input type="password" name="contraseña" id="contraseña" value='{{ contraseña }}' placeholder="Password" required>
+                    </div>
 
-            <h1>Inicia Sesión</h1>
-
-            <label for="email">Correo electrónico:</label><br>
-            <input type="email" name="email" id="email" value='{{ email }}' placeholder="Email" required><br>
-            <label for="contraseña">Contraseña:</label><br>
-            <input type="password" name="contraseña" id="contraseña" value='{{ contraseña }}' placeholder="Password" required><br>
-
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul>{% for message in messages %}</ul>
-                        <li>{{ message }}</li>
-                    <ul>{% endfor %}</ul>
-                {% endif %}
-            {% endwith %}
-
-            <button type="submit">Ingresar</button><br>
+                    <div class="inputBox"><input type="submit" value="Ingresar">
+                    </div>
             
-        </form>
-        <b>¿No tienes una cuenta? </b><button onclick="window.location.href='/registro'">Regístrate</a></button><br>
-    </div>
+                    <p class="login">¿No tienes una cuenta?</p><a href="/registro">Regístrate</a>
+
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul>{% for message in messages %}</ul>
+                                <li>{{ message }}</li>
+                            <ul>{% endfor %}</ul>
+                        {% endif %}
+                    {% endwith %}
+            
+                </form>
+            </div>
+            </div>    
+        </div>
+    </section>
 </body>
 </html>
