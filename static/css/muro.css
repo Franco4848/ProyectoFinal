@@ -9,6 +9,8 @@ body {
 /* Contenedor principal que envuelve el navbar y el muro */
 .main-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     height: 100vh; /* Hacemos que el contenedor ocupe toda la altura de la ventana */
 } 
 
@@ -35,14 +37,7 @@ button:hover {
     
 }
 
-.comment {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    width: 100%; /* Alineación de los comentarios */
-}
+
 
 /* Modal centrado y ajustado */
 .modal {
@@ -154,30 +149,37 @@ a{
 
 
 
-
-
 .container{
-    width: 80%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 850px;
     margin: 0 auto;
-    margin-right: 0;
+    margin-right: 40px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    background-color: #fff; /* Fondo blanco */
+    overflow: hidden; /* Para que el contenido respete los bordes redondeados */
+    transition: box-shadow 0.3s ease; /* Animación para un efecto sutil al hacer hover */
 }
 .post-image{
-    height: 200px;
+    height: 400px;
     width: 100%;
+    border-radius: 10px 10px 0 0;
     object-position: 50% 50%;
     object-fit: cover;
 }
 .title{
-    text-align: center;
+    text-align: left;
     margin: 0;
 }
 .descripcion{
     flex-grow: 1;
 }
-.post-image img{
-    border-radius: 10px 10px 0 0;
-}
+/*.post-image{
+    
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}*/
 .post-body{
     border-radius: 0 0 10px 10px;
     background-color: #fff;
@@ -186,4 +188,23 @@ a{
     border: 1px solid #ccc;
 }
 
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    width: 100%; /* Alineación de los comentarios */
+}
+.post {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.post:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.comments{
+    width: 100%;
+}
 
