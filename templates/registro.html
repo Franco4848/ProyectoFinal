@@ -7,8 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap" rel="stylesheet">
-
-    
+    <title>Crear cuenta</title>    
 </head>
 <body>
     <section>
@@ -17,50 +16,54 @@
         <div class="cuadrado" style="--i:2"></div>
         <div class="loginBox">
             <div class="loginContainer">
-            <div class="loginForm">
-                <h1>Crear cuenta</h1>
-                <h2>¡Únete a VinoMarket! </h2>
-                <h3>Sé parte de nuestra comunidad apasionada por el vino</h3>
-                <form action="/registro" method="POST"> 
-                    <div class="labelBox"><label for="nombre_completo">Nombre completo:</label></div>
-                    <div class="inputBox"><input type="text" name="nombre_completo" id="nombre_completo"  placeholder="Tu Nombre" maxlength="50" required>
-                    </div>
-                    <div class="labelBox"><label for="username">Nombre de usuario:</label>
-                    </div>
-                    <div class="inputBox"><input type="text"  name="username" id="username"  placeholder="Username" minlength="5" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required>
-                    </div>
-                    <div class="labelBox"><label for="email">Correo electrónico:</label>
-                    </div>
-                    <div class="inputBox"><input type="email" name="email" id="email"  placeholder="Email" title="No se podrá modificar tras el registro" required>
-                    </div>
-                    <div class="labelBox"><label for="fechaNac">Fecha de nacimiento:</label>
-                    </div>
-                    <div class="inputBox"><input type="date" name="fechaNac" id="fechaNac"  placeholder="mm/dd/aaaa" title="No se podrá modificar tras el registro" required>
-                    </div>
-                    <div class="labelBox"><label for="contraseña">Contraseña:</label>
-                    </div>
-                    <div class="inputBox"><input type="password"  name="contraseña" id="contraseña" placeholder="Password" minlength="8" title="No se podrá modificar tras el registro" required>
-                    </div>
-                   
-                    <div class="inputBox"><input type="submit" value="Registrarme">
-                    </div>
-                    
-                    <p class="login">¿Tienes una cuenta?</p><a href="/login">Iniciar sesión</a>
-                   
+                <div class="loginForm">
+                    <h1>Cree su cuenta</h1>
+                    <h2>¡Únete a VinoMarket! </h2>
+                    <h3>Sé parte de nuestra comunidad apasionada por el vino</h3>
+                    <form action="/registro" method="POST"> 
+                        <div class="labelBox"><label for="nombre_completo">Nombre completo:</label></div>
+                        <div class="inputBox"><input type="text" name="nombre_completo" id="nombre_completo"  placeholder="Tu Nombre" maxlength="50" required>
+                        </div>
+                        <div class="labelBox"><label for="username">Nombre de usuario:</label>
+                        </div>
+                        <div class="inputBox"><input type="text"  name="username" id="username"  placeholder="Username" minlength="5" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required>
+                        </div>
+                        <div class="labelBox"><label for="email">Correo electrónico:</label>
+                        </div>
+                        <div class="inputBox"><input type="email" name="email" id="email"  placeholder="Email" title="No se podrá modificar tras el registro" required>
+                        </div>
+                        <div class="labelBox"><label for="fechaNac">Fecha de nacimiento:</label>
+                        </div>
+                        <div class="inputBox"><input type="date" name="fechaNac" id="fechaNac"  placeholder="mm/dd/aaaa" title="No se podrá modificar tras el registro" required>
+                        </div>
+                        <div class="labelBox"><label for="contraseña">Contraseña:</label>
+                        </div>
+                        <div class="inputBox"><input type="password"  name="contraseña" id="contraseña" placeholder="Password" minlength="8" title="No se podrá modificar tras el registro" required>
+                        </div>
+                        <div class="labelBox"><label for="contraseña2">Vuelva a escribir la contraseña:</label>
+                        </div>
+                        <div class="inputBox"><input type="password"  name="contraseña2" id="contraseña2" placeholder="Confirmación" required>
+                        </div>
 
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <ul>
-                                {% for message in messages %}
-                                    <li>{{ message }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
-                </form>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+
+                        <div class="inputBox"><input type="submit" value="Registrarme">
+                        </div>
+                        
+                        <b><p class="login">¿Tienes una cuenta?</p><a href="/login">Iniciar sesión</a></b>
+                    
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </section>
    
 </body>
