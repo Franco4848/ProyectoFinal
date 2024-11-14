@@ -20,10 +20,10 @@
             <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
             <li class="itemNav"><i class='bx bx-search-alt'></i><a href="">Buscar</a></li>
             <li class="itemNav"><i class='bx bx-log-out-circle'></i><a href="">Logout</a></li>
-            <li class="itemNav"><i class='bx bx-user'></i><a href="">Perfil</a></li>
+            <li class="itemNav"><i class='bx bx-user'></i><a href="/editarPerfil">Perfil</a></li>
             <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li>
         </ul>
-    
+  
         <!-- Muro de publicaciones -->
         <div class="container">
             <!-- Botón para abrir el modal -->
@@ -34,9 +34,13 @@
             <!-- Bucle que recorre las publicaciones -->
             {% for cliente in clientes %}
             <div class="post">
-                <h2>{{ cliente.titulo }}</h2>
+                
                 <img class="post-image" src="{{ url_for('static', filename='uploads/' + cliente.imagen) }}" alt="Imagen de {{ cliente.titulo }}">
-                <p>{{ cliente.descripcion }}</p>
+                 
+                <div class="post-body">
+                    <h2 class="title">{{ cliente.titulo }}</h2>
+                    <p class="descripcion">{{ cliente.descripcion }}</p>
+                </div>
     
                 <h3>Comentarios</h3>
     
@@ -74,12 +78,12 @@
                     <h1>Publicar</h1>
                     <label for="titulo">Título:</label><br>
                     <input type="text" id="titulo" name="titulo"><br>
-                    <br>
+                    
                     <label class="logo" for="logo">Agregar imagen:</label><br>
-                    <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;"><br>
+                    <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;">
                     <input type="file" name="imagen" accept="image/*"><br><br>
                     <label for="descripcion">Agregar descripción:</label><br>
-                    <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br><br>
+                    <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br>
                     <button type="submit">Publicar</button>
                 </form>
             </div>
