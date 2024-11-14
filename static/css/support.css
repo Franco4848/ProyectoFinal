@@ -7,10 +7,10 @@
 
 .barraNav{
     margin: 0;
-    padding: 20px;
     background-color: #000;
-    width: 150px;
     height: 100vh;
+    padding: 20px;
+    width: 150px;
 }
 
 .itemNav{

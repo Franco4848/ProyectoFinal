@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap');
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
 }
 
 .contenedor-main {
@@ -65,6 +67,7 @@ body {
 }
 
 .foto-perfil{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 130px; 
     height: 130px;
     border-radius: 15px;
@@ -78,6 +81,7 @@ body {
     padding-bottom: 18px;
     padding-left: 18px;
     max-width: 1143px;
+    min-height: 100vh;
 }
 
 .publicaciones{

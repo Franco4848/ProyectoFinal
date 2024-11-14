@@ -1,4 +1,3 @@
-// Obtén el modal y el botón que lo abre
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("openModal");
 var span = document.getElementsByClassName("close")[0];
