@@ -1,32 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap');
-
-* {
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
 }
 
-body {
-    overflow: auto;
+.contenedor-main {
+    display: flex;
+} 
+
+.main-contenido{
+    flex: 2;
+    margin-left: 190px;
 }
 
+button{
+    cursor: pointer;
+}
+
+
 section {
-    margin-bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 100vh;
-    min-height: 100%;
     background: #4b1c71;
 }
 
 section .cuadrado {
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     filter: blur(100px);
 }
 
@@ -63,12 +66,12 @@ section .cuadrado:nth-child(3) {
         transform: translateX(50px);
     }
 }
-.loginBox {
+
+.editBox {
     position: relative;
-    margin: 20px;
 }
 
-.loginContainer {
+.editContainer {
     position: relative;
     width: 400px;
     min-height: 400px;
@@ -82,54 +85,40 @@ section .cuadrado:nth-child(3) {
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
 }
 
-.loginForm {
+.editForm {
     position: relative;
     width: 100%;
     height: 100%;
     padding: 40px;
 }
 
-.loginForm h1 {
-    color:#1b0e25;
-}
-
-.loginForm h3 {
-    color:#1b0e25;
-}
-
-.loginForm h2 {
+.editForm h2 {
     position: relative;
-    color:#f3d8ff;
+    color: #fff;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
-    margin-bottom: 20px;
-    margin-top: 8px;
+    margin-bottom: 40px;
 }
 
-.loginForm h2::before {
+.editForm h2::before {
     content: "";
     position: absolute;
     left: 0;
     bottom: -10px;
     width: 180px;
     height: 4px;
-    background: #f3d8ff;
+    background: #fff;
 }
 
-.loginForm .inputBox {
+.editForm .inputBox {
     width: 100%;
-    margin-top: 9px;
+    margin-top: 20px;
 }
-
-
-.loginForm .labelBox {
-    margin-top: 15px;
-}
-
-.loginForm .inputBox input {
+.editForm .inputBox input {
     width: 100%;
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -144,33 +133,29 @@ section .cuadrado:nth-child(3) {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.loginForm .inputBox input::placeholder {
+.editForm .inputBox input::placeholder {
     color: #fff;
 }
-.loginForm .inputBox input[type="submit"] {
+.editForm .inputBox input[type="submit"] {
     background: #fff;
-    color: #9b7d82;
+    color: #666;
     width: 100%;
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 20px;
     transition: 0.3s;
-    margin-top: 13px;
+
 }
-.loginForm .inputBox input[type="submit"]:hover {
+.editForm .inputBox input[type="submit"]:hover {
     background: #fff0ff;
 }
 
 .login {
     margin-top: 5px;
-    color: #f3d8ff;
+    color: #fff;
 }
 
 .login button {
     color: #fff;
     font-weight: 600;
-}
-
-.loginContainer a{
-    color:#ba92d8;
 }
