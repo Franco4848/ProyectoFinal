@@ -43,7 +43,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 PERFIL_UPLOADS= os.path.join('static', 'perfil_uploads')
-ALLOWED_EXTENSIONS= {'jpg'}
+ALLOWED_EXTENSIONS= {'jpg', 'png'}
 app.config['PERFIL_UPLOADS'] = PERFIL_UPLOADS
 
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
@@ -177,7 +177,7 @@ def registro():
         if flash_msg:
             flash(flash_msg, 'error')
             return render_template('registro.html', nombre_completo= nombre_completo, username= username, email= email,
-                                   fechaNac= fechaNac, contraseña= contraseña, contraseña2= contraseña2)
+                                   fechaNac= fechaNac, contraseña= contraseña, contraseña2 = contraseña2)
         else:
             cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
                          VALUES (%s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
