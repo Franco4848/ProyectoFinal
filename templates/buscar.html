@@ -42,28 +42,30 @@
                 .then(resultados => mostrarResultados(resultados))
                 .catch(error => console.error("Error:", error));
         }
-
         function mostrarResultados(resultados) {
-            const resultadosDiv = document.getElementById("resultados");
-            resultadosDiv.innerHTML = "";
-            
-            if (resultados.length === 0) {
-                resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
-                return;
-            }
+    const resultadosDiv = document.getElementById("resultados");
+    resultadosDiv.innerHTML = "";
 
-            resultados.forEach(publi => {
-                const publiDiv = document.createElement("div");
-                publiDiv.className = "publicacion";
+    if (resultados.length === 0) {
+        resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+        return;
+    }
 
-                publiDiv.innerHTML = `
-                    <h2>${publi.titulo}</h2>
-                    <img src="static/images/${publi.imagen}" alt="${publi.titulo}" style="width:100px;">
-                    <p>${publi.descripcion}</p>
-                `;
-                resultadosDiv.appendChild(publiDiv);
-            });
-        }
+    resultados.forEach(publi => {
+        const publiDiv = document.createElement("div");
+        publiDiv.className = "publicacion";
+
+        publiDiv.innerHTML = `
+            <h2>${publi.titulo}</h2>
+            <img src="static/uploads/${publi.imagen}" alt="${publi.titulo}" style="width:250px; heigth:250px">
+            <p>${publi.descripcion}</p>
+        `;
+        resultadosDiv.appendChild(publiDiv);
+    });
+}
+
+
+
     </script>
 </body>
 </html>

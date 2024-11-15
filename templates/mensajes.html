@@ -6,6 +6,8 @@
     <title>CHAT</title>
 
     <link rel="stylesheet" href="/static/css/mensajes.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/support.css') }}">
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
@@ -19,17 +21,8 @@
         </div>
     </section>
 
-    <ul class="barraNav">
-        <div class="separador">
-        <li class="itemNav "><i class='bx bx-home'></i><a href="/add_post"> Inicio</a></li>
-        <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
-        <li class="itemNav"><i class='bx bx-search-alt'></i><a href="/buscar">Buscar</a></li>
-        <li class="itemNav"><i class='bx bx-user'></i><a href="">Perfil</a></li>
-        </div>
+    {% include 'support.html' %}
 
-        <li class="itemNav supp "><i class='bx bx-log-out-circle'></i><a href="">Logout</a></li>
-        <!-- <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li> -->
-    </ul>
         <!-- jQuery: Permite obtener y utilizar los id -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
