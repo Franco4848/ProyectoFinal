@@ -1,11 +1,81 @@
 /* Estilos para el modal */
 
 body {
-    margin: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(90deg, rgba(50,20,30,1) 0%, rgba(255,245,235,1) 59%);
     color: #333;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif ;
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    padding: 36px;
+    grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
+
+    
 }
+
+
+.contenedor-main{
+    display: flex;
+}
+.barraNav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    padding: 20px;
+    background-color: #000;
+    width: 150px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid #ccc;
+    box-shadow: 0 10px 8px #f672ca;
+
+    
+}
+
+.itemNav{
+    padding: 15px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    text-decoration: none;
+    background-color: #eee;
+    width: 115px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 35px;
+    box-shadow: 0 5px 10px #6e024a;
+
+    
+    
+}
+a{
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    /* padding: 5px 0; */
+    margin-left: 10px;
+    font-size: 20px;
+    text-align:center;
+}
+.separador{
+    margin-top: 30px;
+}
+.supp{
+    margin-top: 150px;
+}
+.itemNav:hover{
+    background-color: #6f044c;
+    color: #ccc;
+}
+
+
 .modal {
     display: none; 
     position: fixed;
@@ -91,7 +161,7 @@ input[type="number"]:focus {
 .buscador--button{
     display: flex;
     margin: auto;
-    margin-left: 650px;
+    margin-left: 300px;
     margin-top: 20px;
     width: 600px;
     align-items: center;
@@ -116,33 +186,4 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
-.itemNav {
-    padding: 15px;
-    margin: 0 0 20px 0;
-    list-style-type: none;
-    background-color: #eee;
-    width: 200px;
-    font-size: 18px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.itemNav:hover {
-    background-color: #d5b8b8;
-    transform: scale(1.02);
-}
-
-.itemNav a {
-    text-decoration: none;
-    color: #333;
-    padding: 10px;
-    display: block;
-}
-
-.itemNav .supp {
-    margin-top: 120px;
-}
-
-
 
