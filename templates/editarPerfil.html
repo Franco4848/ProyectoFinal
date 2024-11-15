@@ -12,76 +12,89 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Editar perfil</title>
 </head>
-<body> 
+<body>
+    {% include 'support.html' %}
     <section>
         <div class="cuadrado" style="--i:0"></div>
         <div class="cuadrado" style="--i:1"></div>
         <div class="cuadrado" style="--i:2"></div>
+        <div class="cuadrado" style="--i:3"></div>
         <div class="editBox">
             <div class="editContainer">
-                {% include 'support.html' %}
                 <div class="editForm">
+                    <button onclick="window.location.href='/perfil/{{ current_user.id }}'">Volver</button>
                     <h1>Editar Perfil</h1>
-                    <h2>¡Personaliza tu cuenta!</h2>
-                    <button onclick="window.location.href='/perfil/{{ current_user.id }}'">Volver al perfil</button><br>
-                    <form action="/editarPerfil" method="POST" enctype="multipart/form-data">
-                
-                        <label for="fotoPerfil">Cambiar foto de perfil:</label><br>
-                        {% if fotoPerfil %}
-                            <img src="{{ url_for('static', filename='perfil_uploads/' + fotoPerfil) }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
-                            <input type="checkbox" name="eliminar_foto" value="True"> Eliminar foto
-                        {% else %}
-                            <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+                    <h2>¡Personalizá tu cuenta!</h2>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <ul>{% for category, message in messages %}</ul>
+                                <li class="flash-message {{category}}" >{{ message }}</li>
+                            <ul>{% endfor %}</ul>
                         {% endif %}
-                        <input type="file" accept="image/*" name="fotoPerfil" id="fotoPerfil"><br>
+                    {% endwith %}
+                    <form action="/editarPerfil" method="POST" enctype="multipart/form-data">
+                        <div class= "labelBox"><label>Foto de perfil:</label></div>
+                        <div class="img-container">
+                            {% if fotoPerfil %}
+                                <img id="imgPreview" src="{{ url_for('static', filename='perfil_uploads/' + fotoPerfil) }}" name="fotoPerfil" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+                                <div class="label-actions">
+                                    <label class="modImg" for="eliminar_foto">Eliminar</label>
+                                    <input type="checkbox" id="eliminar_foto" name="eliminar_foto" value="True" style="display: none;">
+                                    <label class="modImg" for="fotoPerfil">Modificar</label>
+                                    <input type="file" accept="image/*" name="fotoPerfil" id="fotoPerfil" style="display: none;">
+                                </div>
+                            {% else %}
+                                <img id="imgPreview" src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" name="fotoPerfil" style="max-width: 130px; max-height: 130px;" class="profile-pic">
+                                <div class="label-actions">
+                                    <label class="modImg" for="fotoPerfil">Modificar</label>
+                                    <input type="file" accept="image/*" name="fotoPerfil" id="fotoPerfil" style="display: none;">
+                                </div>
+                            {% endif %}
+                        </div>
                         <input type="text" name="fotoActual" value="{{ fotoPerfil }}" hidden>
                 
-                        <label for="nombre_completo">Nombre completo:</label><br>
-                        <input type="text" name="nombre_completo" id="nombre_completo" value="{{ nombre_completo }}" placeholder='El nombre es requerido' maxlength="50" required><br>
+                        <div class="labelBox"><label for="nombre_completo">Nombre completo:</label></div>
+                        <div class="inputBox"><input type="text" name="nombre_completo" id="nombre_completo" value="{{ nombre_completo }}" placeholder='El nombre es requerido' maxlength="50" required></div>
                         
-                        <label for="username">Nombre de usuario:</label><br>
-                        <input type="text" name="username" id="username" value="{{ username }}" placeholder="El username es requerido" minlength="5" maxlength="12" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required><br>
+                        <div class="labelBox"><label for="username">Nombre de usuario:</label></div>
+                        <div class="inputBox"><input type="text" name="username" id="username" value="{{ username }}" placeholder="El username es requerido" minlength="5" maxlength="12" pattern="[A-Za-z0-9_]+" title="Se permiten letras, números y guiones bajos." required></div>
                 
-                        <label for="email">Correo electrónico:</label><br>
-                        <input type="email" name="email" id="email" value="{{ email }}" title='No se puede editar' readonly><br>
+                        <div class="labelBox"><label for="email">Correo electrónico:</label></div>
+                        <div class="inputBox"><input type="email" name="email" id="email" value="{{ email }}" title='No se puede editar' readonly></div>
                 
-                        <label for="fechaNac">Fecha de nacimiento:</label><br>
-                        <input type="date" name="fechaNac" id="fechaNac" value="{{ fechaNac }}" title="No se puede editar" readonly><br>
-                    
-                        <label for="mostrarSiNo">En perfil público:</label><br>
-                        <select id="mostrarSiNo" name="mostrarSiNo" title='Obligatorio' required>
-                            <option value="" disabled selected>Seleccione una opción</option>
-                            <option value="fecha"  {% if mostrarSiNo == 'fecha' %} selected {% endif %}>Mostrar fecha de nacimiento</option>
-                            <option value="edad" {% if mostrarSiNo == 'edad' %} selected {% endif %}>Mostrar edad</option>
-                            <option value="ninguna" {% if mostrarSiNo == 'ninguna' %} selected {% endif %}>No mostrar</option>
-                        </select><br>
+                        <div class="labelBox"><label for="fechaNac">Fecha de nacimiento:</label></div>
+                        <div class="inputBox"><input type="date" name="fechaNac" id="fechaNac" value="{{ fechaNac }}" title="No se puede editar" readonly></div>
+
+                        <!--<div class="labelBox"><label for="mostrarSiNo">Mostrar en perfil:</label></div>
+                        <div class="inputBox">
+                            <select id="mostrarSiNo" name="mostrarSiNo" title='Obligatorio' required>
+                                <option value="" disabled selected>Seleccione una opción</option>
+                                <option value="fecha"  {% if mostrarSiNo == 'fecha' %} selected {% endif %}>Fecha de nacimiento</option>
+                                <option value="edad" {% if mostrarSiNo == 'edad' %} selected {% endif %}>Edad</option>
+                                <option value="ninguna" {% if mostrarSiNo == 'ninguna' %} selected {% endif %}>No mostrar</option>
+                            </select>
+                        </div>-->
                 
-                        <label for="presentacion">Presentación:</label><br> 
-                        <input type="text"  name="presentacion" id="presentacion" value="{{ presentacion }}" placeholder="Incluye tus intereses" title="Opcional" maxlength="180"><br>
+                        <div class="labelBox"><label for="presentacion">Presentación:</label></div> 
+                        <div class="inputBox"><input type="text"  name="presentacion" id="presentacion" value="{{ presentacion }}" placeholder="Incluye tus intereses" title="Opcional" maxlength="180"></div>
                         
-                        <label for="ubicacion">Ubicación:</label><br>
-                        <input type="text" name="ubicacion" id="ubicacion" value="{{ ubicacion }}" placeholder='Ciudad y país' title="Opcional" pattern="[A-Za-zÀ-ÿ\s,-.()]+" ><br>
+                        <div class="labelBox"><label for="ubicacion">Ubicación:</label></div>
+                        <div class="inputBox"><input type="text" name="ubicacion" id="ubicacion" value="{{ ubicacion }}" placeholder='Ciudad y país' title="Opcional" pattern="[A-Za-zÀ-ÿ\s,-.()]+" ></div>
                         
-                        <label for="enlace">Enlace:</label><br>
-                        <input type="url" name="enlace" id="enlace" value="{{ enlace }}"><br>
+                        <div class="labelBox"><label for="enlace">Enlace:</label></div>
+                        <div class="inputBox"><input type="url" name="enlace" id="enlace" value="{{ enlace }}"></div>
                 
+                        <p>Los datos se incluirán en tu perfil</p>
+
                         <button type="submit" class="guardarCambios" value="Submit">Guardar cambios</button><br>
-                        <p> Los datos se incluirán en tu perfil</p>
-                
-                        {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                    <ul>{% for message in messages %}</ul>
-                                        <li>{{ message }}</li>
-                                    <ul>{% endfor %}</ul>
-                                {% endif %}
-                        {% endwith %}
                 
                     </form>
-                    <button onclick="window.location.href='/editarPerfil'" >Reestablecer datos</button><br>
+                    <button onclick="window.location.href='/editarPerfil'" >Reestaurar datos</button><br>
                 </div>
             </div>
         </div>
     </section>
+    <script src="{{ url_for('static', filename='js/preview.js') }}"></script>
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 </body>
 </html>
