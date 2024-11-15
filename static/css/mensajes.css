@@ -18,8 +18,8 @@ body{
     height: 100vh;
     padding: 36px;
     grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
-    background: linear-gradient(135deg, #8B0000, #4C0033);
-
+    background: linear-gradient(90deg, rgba(50,20,30,1) 0%, rgba(255,245,235,1) 59%);
+ 
 }
 #chat{
     /* border: 1px solid #000000; */
