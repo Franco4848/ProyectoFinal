@@ -177,10 +177,17 @@ def registro():
         if flash_msg:
             flash(flash_msg, 'error')
             return render_template('registro.html', nombre_completo= nombre_completo, username= username, email= email,
+<<<<<<< HEAD
                                 fechaNac= fechaNac, contraseña= contraseña, contraseña2 = contraseña2)
         else:
             cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
                         VALUES (%s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
+=======
+                                   fechaNac= fechaNac, contraseña= contraseña, contraseña2 = contraseña2)
+        else:
+            cur.execute('''INSERT INTO usuario (nombre_completo, username, email, fechaNac, contraseña)
+                         VALUES (%s, %s, %s, %s, %s)''', (nombre_completo, username, email, fechaNac, contraseña))
+>>>>>>> a14986813a5dd61b5d0bcca49a2c943d2c3c5869
             mysql.connection.commit()
             nuevo_usuario_id = cur.lastrowid
             cur.close()
@@ -294,7 +301,11 @@ def buscar():
     cursor = mysql.connection.cursor()
     
     cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
+<<<<<<< HEAD
                 (f'%{query}%', f'%{query}%'))
+=======
+                   (f'%{query}%', f'%{query}%'))
+>>>>>>> a14986813a5dd61b5d0bcca49a2c943d2c3c5869
     resultados = cursor.fetchall()
     
     publicaciones = []
@@ -311,7 +322,11 @@ def buscar():
 
 def extension_permitida(archivo):
     return '.' in archivo and \
+<<<<<<< HEAD
         archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+=======
+           archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+>>>>>>> a14986813a5dd61b5d0bcca49a2c943d2c3c5869
 
 
 @app.route('/perfil/<id_usuario>', defaults= {'id_publicacion' : None})
@@ -415,9 +430,18 @@ def editarPerfil():
         datos= cur.fetchone()
         cur.close()
         return render_template('editarPerfil.html', nombre_completo= datos['nombre_completo'], username= datos['username'], 
+<<<<<<< HEAD
                             email= datos['email'], fotoPerfil= datos['fotoPerfil'], fechaNac= datos['fechaNac'], presentacion= datos['presentacion'], 
                             ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
 
 if __name__ == '__main__':
     socketio.run(app, debug= True)
     #app.run(port=3000, debug=True)
+=======
+                               email= datos['email'], fotoPerfil= datos['fotoPerfil'], fechaNac= datos['fechaNac'], presentacion= datos['presentacion'], 
+                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
+
+if __name__ == '__main__':
+    socketio.run(app, debug= True)
+    #app.run(port=3000, debug=True)
+>>>>>>> a14986813a5dd61b5d0bcca49a2c943d2c3c5869

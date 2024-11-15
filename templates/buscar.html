@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Vinos</title>
+    <link rel="stylesheet" href="/static/css/buscar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <button onclick="abrirModal()">Buscador</button>
+    
+    <!-- modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+
+            <input type="text" id="searchInput" placeholder="Buscar publicaciones...">
+            <button onclick="buscar()">Buscar</button>
+
+            <div id="resultados"></div>
+        </div>
+    </div>
+
+    <script>
+        // abrir el modal
+        function abrirModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // cerrar el modal
+        function cerrarModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // realizar búsqueda
+        function buscar() {
+            const query = document.getElementById("searchInput").value;
+            fetch(`/buscar?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(resultados => mostrarResultados(resultados))
+                .catch(error => console.error("Error:", error));
+        }
+
+        function mostrarResultados(resultados) {
+            const resultadosDiv = document.getElementById("resultados");
+            resultadosDiv.innerHTML = "";
+            
+            if (resultados.length === 0) {
+                resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            resultados.forEach(publi => {
+                const publiDiv = document.createElement("div");
+                publiDiv.className = "publicacion";
+
+                publiDiv.innerHTML = `
+                    <h2>${publi.titulo}</h2>
+                    <img src="static/images/${publi.imagen}" alt="${publi.titulo}" style="width:100px;">
+                    <p>${publi.descripcion}</p>
+                `;
+                resultadosDiv.appendChild(publiDiv);
+            });
+        }
+    </script>
+</body>
+</html>
