@@ -11,21 +11,29 @@
 
 body{
     margin: 0;
+    padding: 0;
     font-family: sans-serif ;
     display: grid;
     place-content: center;
     height: 100vh;
     padding: 36px;
     grid-template-rows: 1fr; /* Para que tome toda la altura el contenido de lo que pongamos */
+    background: linear-gradient(90deg, rgba(50,20,30,1) 0%, rgba(255,245,235,1) 59%);
+ 
 }
 #chat{
     /* border: 1px solid #000000; */
     border-radius: 4px;
     overflow: hidden;
-    width: 350px;
+    width: 400px;
     height: 100%;
     position: relative;
     font-size: 18px;
+    border: 2px solid #f96cca;
+    background-color: #000;
+    box-shadow: 0 0 8px  #f672ca;
+    margin-left: 200px;
+    
 }
 
 #form{
@@ -34,9 +42,11 @@ body{
     bottom: 10px;
     width: 100%;
     margin-left: 10px;
-    /* text-align: center; */
+    
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-left: 4px;
 }
 #myMessage{
     margin: 10px;
@@ -47,6 +57,8 @@ body{
     border-left: 2px solid #ccc;
     border-bottom: 2px solid #ccc;
     width: 270px;
+    box-shadow: 0 1px 5px  #f672ca;
+
 }
 #send{
     display: flex;
@@ -59,6 +71,8 @@ body{
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    box-shadow: 0 2px 6px  #f672ca;
+
 }
 .message-conteiner{
     display: flex;
@@ -67,6 +81,8 @@ body{
 .bxs-user-circle{
     margin-right: 10px;
     font-size: 30px;
+    color: #eee;
+
 }
 
 #messages{
@@ -78,14 +94,13 @@ body{
     max-height: 400px;
     padding: 10px;
 
+
 }
 ul .mensaje{
-    width: 200px;
+    width: 150px;
     height: auto;
     margin-bottom: 10px;
     padding: 10px;
     background-color: #eee;
     border-radius: 5px;
 }
-
-

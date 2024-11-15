@@ -11,24 +11,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>-->
-    <div class="body-barra">
-        <ul class="barraNav">
-            <li class="itemNav"><i class='bx bx-home'></i><a href="/add_post"> Inicio</a></li>
-            <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
-            <li class="itemNav"><i class='bx bx-search-alt'></i><a href="/templates/buscar.html">Buscar</a></li>
-            <li class="itemNav"><i class='bx bx-log-out-circle'></i><a href="#" id="openModal">Logout</a></li>
-            <li class="itemNav"><i class='bx bx-user'></i><a href="/perfil/{{ current_user.id }}">Perfil</a></li>
-            <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li>
-        </ul>
-        <div id="myModal" class='modal'>
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>¿Desea cerrar la sesión?</p>
-                <form action="/logout" method="POST"> 
-                    <button class="confirmar" type="submit"><b>Confirmar</b></button>
-                </form>
-            </div>
+    <ul class="barraNav">
+        <div class="separador">
+        <li class="itemNav "><i class='bx bx-home'></i><a href="/add_post"> Inicio</a></li>
+        <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
+        <li class="itemNav"><i class='bx bx-search-alt'></i><a href="/buscar">Buscar</a></li>
+        <li class="itemNav"><i class='bx bx-user'></i><a href="/perfil/{{ current_user.id }}">Perfil</a></li>
         </div>
-    </div>
+
+        <li class="itemNav supp "><i class='bx bx-log-out-circle'></i><a href="/logout">Logout</a></li>
+    </ul>
+    <!-- <div id="myModal" class='modal'>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Desea cerrar la sesión?</p>
+            <form action="/logout" method="POST"> 
+                <button class="confirmar" type="submit"><b>Confirmar</b></button>
+            </form>
+        </div>
+    </div> -->
+
 <!--</body>
 </html>-->

@@ -13,6 +13,7 @@ from flask_login import UserMixin, LoginManager, login_user, logout_user, login_
 from datetime import datetime
 import locale
 locale.setlocale(locale.LC_TIME, 'es_AR.UTF-8')
+from MySQLdb.cursors import DictCursor
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -82,8 +83,8 @@ def load_user(user_id):
 
 @app.route('/login', methods= ["GET", "POST"])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('muro'))
+    #if current_user.is_authenticated:
+        #return redirect(url_for('muro'))
     if request.method == 'POST':
         email= request.form['email']
         contraseña = request.form["contraseña"]
@@ -150,8 +151,8 @@ def validarContraseña(contraseña):
     
 @app.route('/registro', methods= ["GET", "POST"])
 def registro():
-    if current_user.is_authenticated:
-        return redirect(url_for('muro'))
+    #if current_user.is_authenticated:
+        #return redirect(url_for('muro'))
     cur= mysql.connection.cursor()
     if request.method == 'POST':
         nombre_completo= request.form['nombre_completo']
@@ -194,13 +195,13 @@ def registro():
 @app.route('/logout', methods= ["POST", "GET"])
 @login_required
 def logout():
-    if request.method == "POST":
+    #if request.method == "POST":
         logout_user()
         flash('Ha cerrado sesión', 'success')
-        return redirect(url_for('login'))
-    else:
-        flash('No fue posible cerrar sesión', 'error')
-        return redirect(url_for('muro'))
+        return redirect('/')
+    #else:
+        #flash('No fue posible cerrar sesión', 'error')
+        #return redirect(url_for('muro'))
 
 @app.route("/add_post",methods= ["GET", "POST"])
 #@login_required
@@ -289,57 +290,33 @@ def suppot():
 
 #---Buscador de vinos ---
 
-"""
-@app.route('/buscar', methods=['GET'])
-def buscar():
-    query = request.args.get('query', '')
-    cursor = mysql.connection.cursor()
-    
-    cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
-                   (f'%{query}%', f'%{query}%'))
-    resultados = cursor.fetchall()
-    
-    publicaciones = []
-    for publi in resultados:
-        publicaciones.append({
-            "id": publi[0],
-            "titulo": publi[1],
-            "imagen": publi[2],
-            "descripcion": publi[3]
-        })
-    
-    return jsonify(publicaciones)
-
-
-def extension_permitida(archivo):
-    return '.' in archivo and \
-           archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-"""
 @app.route('/buscar', methods=['GET'])
 def buscar():
     return render_template('buscar.html') 
+
 @app.route('/buscar_vinos', methods=['GET'])
 def buscar_vinos():
-    
     query = request.args.get('query', '')
-    cursor = mysql.connection.cursor()
-    
-    
+    cursor = mysql.connection.cursor()  # Asegura que el cursor devuelva diccionarios
     cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
-                   (f'%{query}%', f'%{query}%'))
+                (f'%{query}%', f'%{query}%'))
     resultados = cursor.fetchall()
     cursor.close()
+    
+    print("Resultados de la consulta:", resultados)  # Debug: Ver los resultados en la consola
+    
     publicaciones = [
         {
-            "id": publi[0],
-            "titulo": publi[1],
-            "imagen": publi[2],
-            "descripcion": publi[3]
+            "id": publi['id'],
+            "titulo": publi['titulo'],
+            "imagen": publi['imagen'],
+            "descripcion": publi['descripcion']
         }
         for publi in resultados
     ]
     return jsonify(publicaciones)
+
+
 
 
 def extension_permitida(archivo):
@@ -356,8 +333,10 @@ def perfil(id_usuario, id_publicacion):
     cur.execute('''
         SELECT u.*, p.id AS pub_id, p.titulo, p.imagen, p.descripcion, c.descripcion AS comentario 
         FROM usuario u 
-        LEFT JOIN publi p ON u.id_usuario = p.id_usuario 
-        LEFT JOIN comentarios c ON p.id = c.publi_id 
+        LEFT JOIN publi p 
+        ON u.id_usuario = p.id_usuario 
+        LEFT JOIN comentarios c 
+        ON p.id = c.publi_id 
         WHERE u.id_usuario = %s
     ''', (id_usuario,))
     resultados= cur.fetchall()
@@ -413,7 +392,7 @@ def editarPerfil():
         presentacion= request.form['presentacion']
         ubicacion= request.form['ubicacion']
         enlace= request.form['enlace']
-        mostrarSiNo= request.form['mostrarSiNo']
+        #mostrarSiNo= request.form['mostrarSiNo']
         eliminar_foto= request.form.get('eliminar_foto')
         foto_actual= request.form['fotoActual']
 
@@ -434,11 +413,11 @@ def editarPerfil():
             flash('El nombre de usuario ya está en uso, prueba con otro.', 'error')
             return render_template('editarPerfil.html', nombre_completo= nombre_completo, username= username, email= email, 
                                     fotoPerfil= filename, fechaNac= fechaNac, presentacion= presentacion, ubicacion= ubicacion,
-                                    enlace= enlace, mostrarSiNo= mostrarSiNo, id_usuario= id_usuario)
+                                    enlace= enlace, id_usuario= id_usuario)
         else:
             cur.execute('''UPDATE usuario SET nombre_completo = %s, username = %s, fotoPerfil = %s, presentacion = %s,
-                            ubicacion = %s, enlace = %s, mostrarSiNo = %s WHERE id_usuario = %s''', (nombre_completo, username, filename, 
-                                                                                    presentacion, ubicacion, enlace, mostrarSiNo, id_usuario))
+                            ubicacion = %s, enlace = %s WHERE id_usuario = %s''', (nombre_completo, username, filename, 
+                                                                                    presentacion, ubicacion, enlace, id_usuario))
             mysql.connection.commit()
             flash('Tu perfil fue actualizado.', 'success')
             cur.close()
@@ -449,8 +428,8 @@ def editarPerfil():
         cur.close()
         return render_template('editarPerfil.html', nombre_completo= datos['nombre_completo'], username= datos['username'], 
                                email= datos['email'], fotoPerfil= datos['fotoPerfil'], fechaNac= datos['fechaNac'], presentacion= datos['presentacion'], 
-                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
+                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], id_usuario= datos['id_usuario'])
 
 if __name__ == '__main__':
     socketio.run(app, debug= True)
-    #app.run(port=3001, debug=True)
+    #app.run(port=3000, debug=True)

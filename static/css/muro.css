@@ -13,142 +13,6 @@ body {
     justify-content: space-between;
     height: 100vh; /* Hacemos que el contenedor ocupe toda la altura de la ventana */
 } 
-
-
-/* Botón más grande */
-
-button {
-    background-color: #007BFF;
-    padding: 15px 30px; 
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px; 
-    margin-top: 20px;
-}
-
-button a {
-    text-decoration: none;
-    color: #fff;
-}
-
-button:hover {
-    background-color: #2383ea; 
-    
-}
-
-
-
-/* Modal centrado y ajustado */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-}
-
-/* Contenido del modal */
-.modal-content {
-    background-color: white;
-    margin: 7% auto; /* Centrado vertical y horizontal */
-    padding: 10px;
-    border-radius: 8px;
-    width: 70%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    max-width: 500px; /* Limita el ancho del modal */
-    position: relative;
-    box-sizing: border-box; /* Hace que el padding y los márgenes no afecten el tamaño */
-    overflow: hidden;
-}
-.modal-content button {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%; /* El botón ocupará todo el ancho del formulario */
-    font-size: 16px;
-    box-sizing: border-box; /* Asegura que el botón no sobresalga */
-}
-
-
-/* Botón de cerrar el modal */
-.close {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover, .close:focus {
-    color: black;
-}
-
-/* Botón para abrir el modal */
-#openModal {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 15px;
-}
-
-#openModal:hover {
-    background-color: #0056b3;
-    border-color: #e1e7ed;
-    box-shadow: 0 0 20px hsl(193, 87%, 49%);
-}
-
-
-/* css nav bar */
-
-.barraNav{
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 50px;
-    background-color: #000;
-    width: 150px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-   
-}
-
-.itemNav{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    list-style-type: none;
-    text-decoration: none;
-    background-color: #eee;
-    width: 120px;
-    font-size: 18px;
-    border-radius: 10px;
-    
-}
-a{
-    text-decoration: none;
-    margin-left: 10px;
-    color: black;
-}
-
-.itemNav .supp{
-    margin-top: auto; 
-}
-
-
-
 .container{
     width: 90%;
     max-width: 850px;
@@ -208,3 +72,146 @@ a{
     width: 100%;
 }
 
+/* Botón más grande */
+button {
+    background-color: #eee;
+    padding: 15px 30px; /* Botón más grande */
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px; /* Texto más grande */
+    margin-top: 20px;
+}
+
+button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #6f044c;}
+
+/* Modal centrado y ajustado */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: white;
+    margin: 7% auto; /* Centrado vertical y horizontal */
+    padding: 10px;
+    border-radius: 8px;
+    width: 70%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    max-width: 500px; /* Limita el ancho del modal */
+    position: relative;
+    box-sizing: border-box; /* Hace que el padding y los márgenes no afecten el tamaño */
+    overflow: hidden;
+}
+.modal-content button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* El botón ocupará todo el ancho del formulario */
+    font-size: 16px;
+    box-sizing: border-box; /* Asegura que el botón no sobresalga */
+}
+
+
+/* Botón de cerrar el modal */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+}
+/* Botón para abrir el modal */
+#openModal {
+    padding: 10px 20px;
+    background-color: #6f044c;    
+    color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px #6e024a;
+    cursor: pointer;
+}
+
+#openModal:hover {
+    background-color: #a11572;
+}
+
+
+/* css nav bar */
+
+.barraNav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    padding: 20px;
+    background-color: #1C1C1C;
+    width: 200px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid #ccc;
+    box-shadow: 0 10px 8px #f672ca;
+
+    
+}
+
+.itemNav{
+    padding: 15px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    text-decoration: none;
+    background-color: #eee;
+    width: 150px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 35px;
+    box-shadow: 0 5px 10px #6e024a;
+
+    
+    
+}
+a{
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    /* padding: 5px 0; */
+    margin-left: 10px;
+    font-size: 20px;
+    text-align:center;
+}
+.separador{
+    margin-top: 30px;
+}
+.supp{
+    margin-top: auto;
+}
+.itemNav:hover{
+    background-color: #6f044c;
+    color: #ccc;
+}
