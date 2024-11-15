@@ -24,10 +24,10 @@
                         <div class="labelBox"><label for="contraseña">Contraseña:</label></div>
                         <div class="inputBox"><input type="password" name="contraseña" id="contraseña" value='{{ contraseña }}' placeholder="Password" required></div>
 
-                        {% with messages = get_flashed_messages() %}
+                        {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
-                                <ul>{% for message in messages %}</ul>
-                                    <li>{{ message }}</li>
+                                <ul>{% for category, message in messages %}</ul>
+                                    <li class="flash-message {{category}}" >{{ message }}</li>
                                 <ul>{% endfor %}</ul>
                             {% endif %}
                         {% endwith %}
