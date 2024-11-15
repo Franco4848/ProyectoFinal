@@ -288,6 +288,8 @@ def suppot():
     return render_template('support.html')
 
 #---Buscador de vinos ---
+
+"""
 @app.route('/buscar', methods=['GET'])
 def buscar():
     query = request.args.get('query', '')
@@ -306,6 +308,37 @@ def buscar():
             "descripcion": publi[3]
         })
     
+    return jsonify(publicaciones)
+
+
+def extension_permitida(archivo):
+    return '.' in archivo and \
+           archivo.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+"""
+@app.route('/buscar', methods=['GET'])
+def buscar():
+    return render_template('buscar.html') 
+@app.route('/buscar_vinos', methods=['GET'])
+def buscar_vinos():
+    
+    query = request.args.get('query', '')
+    cursor = mysql.connection.cursor()
+    
+    
+    cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
+                   (f'%{query}%', f'%{query}%'))
+    resultados = cursor.fetchall()
+    cursor.close()
+    publicaciones = [
+        {
+            "id": publi[0],
+            "titulo": publi[1],
+            "imagen": publi[2],
+            "descripcion": publi[3]
+        }
+        for publi in resultados
+    ]
     return jsonify(publicaciones)
 
 

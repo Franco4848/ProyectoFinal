@@ -37,7 +37,7 @@
         // realizar búsqueda
         function buscar() {
             const query = document.getElementById("searchInput").value;
-            fetch(`/buscar?query=${encodeURIComponent(query)}`)
+            fetch(`/buscar_vinos?query=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(resultados => mostrarResultados(resultados))
                 .catch(error => console.error("Error:", error));
