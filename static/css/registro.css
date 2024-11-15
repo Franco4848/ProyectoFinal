@@ -18,7 +18,7 @@ section {
     align-items: center;
     min-width: 100vh;
     height: 100%;
-    background: #4b1c71;
+    background: rgba(255, 245, 235, 1) 100%;
 }
 
 section .cuadrado {
@@ -34,21 +34,21 @@ section .cuadrado:nth-child(1) {
     top: -370px;
     width: 500px;
     height: 500px;
-    background: #7f4ca5;
+    background: #cab5a0;
 }
 section .cuadrado:nth-child(2) {
     bottom: -170px;
     left: 110px;
     width: 550px;
     height: 500px;
-    background: #dbb6ee;
+    background: #c2aa93;
 }
 section .cuadrado:nth-child(3) {
     bottom: 80px;
     right: 120px;
     width: 450px;
     height: 450px;
-    background: #b57ebc;
+    background: #ad9b89;
 }
 .cuadrado {
     position: absolute;
@@ -101,7 +101,7 @@ section .cuadrado:nth-child(3) {
 
 .loginForm h2 {
     position: relative;
-    color:#f3d8ff;
+    color:#6f044c;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -116,7 +116,7 @@ section .cuadrado:nth-child(3) {
     bottom: -10px;
     width: 180px;
     height: 4px;
-    background: #f3d8ff;
+    background: #6f044c;
 }
 
 .loginForm .inputBox {
@@ -140,17 +140,17 @@ section .cuadrado:nth-child(3) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     font-size: 16px;
     letter-spacing: 1px;
-    color: #fff;
+    color: #6f044c;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .loginForm .inputBox input::placeholder {
-    color: #fff;
+    color: #6f044c;
 }
 
 .loginForm .inputBox input[type="submit"] {
-    background: #fff;
-    color: #9b7d82;
+    background: #6f044c;
+    color: #eee;
     width: 100%;
     font-weight: 600;
     cursor: pointer;
@@ -160,28 +160,29 @@ section .cuadrado:nth-child(3) {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 .loginForm .inputBox input[type="submit"]:hover {
-    background: #9b7d82;
+    background: #eee;
+    color: #6f044c;
 }
 
 .login {
     margin-top: 5px;
-    color: #f3d8ff;
+    color: #804e6f;
 }
 
 .login button {
-    color: #fff;
+    color: #6f044c;
     font-weight: 600;
 }
 
 .loginContainer a{
-    color:#ba92d8;
+    color:#6f044c;
 }
 
 li.flash-message {
     padding: 15px 30px;
     margin: 10px 0;
     border-radius: 5px;
-    color: #fff;
+    color: #6f044c;
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

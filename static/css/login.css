@@ -19,7 +19,7 @@ section {
     min-width: 100vh;
     height: 100%;
     min-height: 100vh;
-    background: #4b1c71;
+    background: rgba(255, 245, 235, 1) 100%;
 }
 
 section .cuadrado {
@@ -35,21 +35,21 @@ section .cuadrado:nth-child(1) {
     top: -370px;
     width: 500px;
     height: 500px;
-    background: #7f4ca5;
+    background: #cab5a0;
 }
 section .cuadrado:nth-child(2) {
     bottom: -170px;
     left: 110px;
     width: 550px;
     height: 500px;
-    background: #dbb6ee;
+    background: #b39f8c;
 }
 section .cuadrado:nth-child(3) {
     bottom: 80px;
     right: 120px;
     width: 450px;
     height: 450px;
-    background: #b57ebc;
+    background: #e0c4a7;
 }
 .cuadrado {
     position: absolute;
@@ -97,12 +97,12 @@ section .cuadrado:nth-child(3) {
 }
 
 .loginForm h3 {
-    color:#1b0e25;
+    color:#6f044c;
 }
 
 .loginForm h2 {
     position: relative;
-    color:#f3d8ff;
+    color:#6f044c;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -117,7 +117,7 @@ section .cuadrado:nth-child(3) {
     bottom: -10px;
     width: 180px;
     height: 4px;
-    background: #f3d8ff;
+    background: #6f044c;
 }
 
 .loginForm .inputBox {
@@ -146,11 +146,11 @@ section .cuadrado:nth-child(3) {
 }
 
 .loginForm .inputBox input::placeholder {
-    color: #fff;
+    color: #6f044c;
 }
 .loginForm .inputBox input[type="submit"] {
-    background: #fff;
-    color: #9b7d82;
+    background: #6f044c;
+    color: #eee;
     width: 100%;
     font-weight: 600;
     cursor: pointer;
@@ -159,28 +159,29 @@ section .cuadrado:nth-child(3) {
     margin-top: 13px;
 }
 .loginForm .inputBox input[type="submit"]:hover {
-    background: #fff0ff;
+    background: #eee;
+    color: #6f044c;
 }
 
 .login {
     margin-top: 5px;
-    color: #f3d8ff;
+    color: #804e6f;
 }
 
 .login button {
-    color: #fff;
+    color: #6f044c;
     font-weight: 600;
 }
 
 .loginContainer a{
-    color:#361f47;
+    color:#6f044c;
 }
 
 li.flash-message {
     padding: 15px 30px;
     margin: 10px 0;
     border-radius: 5px;
-    color: #fff;
+    color: #6f044c;
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

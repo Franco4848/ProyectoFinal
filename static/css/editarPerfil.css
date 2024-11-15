@@ -17,7 +17,7 @@ section {
     justify-content: center;
     align-items: center;
     min-width: 100vh;
-    background: #4b1c71;
+    background: rgba(255, 245, 235, 1) 100%;
 }
 
 section .cuadrado {
@@ -33,28 +33,28 @@ section .cuadrado:nth-child(1) {
     top: -370px;
     width: 500px;
     height: 500px;
-    background: #7f4ca5;
+    background: #cab5a0;
 }
 section .cuadrado:nth-child(2) {
     top: 300px;
     left: 110px;
     width: 550px;
     height: 500px;
-    background: #bb8ed1;
+    background: #cab5a0;
 }
 section .cuadrado:nth-child(3) {
     top: 100px;
     left: 600px;
     width: 450px;
     height: 450px;
-    background: #b57ebc;
+    background: #cab5a0;
 }
 section .cuadrado:nth-child(4) {
     top: 900px;
     left: 600px;
     width: 450px;
     height: 450px;
-    background: #d99fe0;
+    background: #cab5a0;
 }
 .cuadrado {
     position: absolute;
@@ -108,12 +108,12 @@ section .cuadrado:nth-child(4) {
 }
 
 .editForm h1 {
-    color:#2e1f3a;
+    color:#1b0e25;
 }
 
 .editForm h2 {
     position: relative;
-    color: #f3d8ff;
+    color: #6f044c;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -127,7 +127,7 @@ section .cuadrado:nth-child(4) {
     bottom: -10px;
     width: 180px;
     height: 4px;
-    background: #f3d8ff;
+    background: #6f044c;
 }
 
 .editForm .labelBox{
@@ -150,7 +150,7 @@ section .cuadrado:nth-child(4) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     font-size: 16px;
     letter-spacing: 1px;
-    color: #fff;
+    color: #6f044c;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     box-sizing: border-box
 }
@@ -164,8 +164,8 @@ section .cuadrado:nth-child(4) {
 .modImg {
     margin-bottom: 20px;
     margin-top: 18px;
-    background: #fff0ff;
-    color: #2e1f3a;
+    background: #6f044c;
+    color: #eee;
     cursor: pointer;
     padding: 17px;
     width: 100%;
@@ -180,12 +180,17 @@ section .cuadrado:nth-child(4) {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.modImg:hover{
+    background: #eee;
+    color: #6f044c;
+}
+
 .editForm .inputBox input::placeholder {
-    color: #fff;
+    color: #6f044c;
 }
 .editForm button{
-    background: #fff0ff;
-    color: #2e1f3a;
+    background: #6f044c;
+    color: #eee;
     padding: 10px 20px;
     width: 100%;
     font-weight: 600;
@@ -198,7 +203,8 @@ section .cuadrado:nth-child(4) {
 
 }
 .editForm button:hover {
-    background: #dfc9df;
+    background: #eee;
+    color: #6f044c;
 }
 
 .img-container {
@@ -217,7 +223,7 @@ li.flash-message {
     padding: 15px 30px;
     margin: 10px 0;
     border-radius: 5px;
-    color: #fff;
+    color: #6f044c;
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
