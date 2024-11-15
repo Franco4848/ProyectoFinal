@@ -82,8 +82,8 @@ def load_user(user_id):
 
 @app.route('/login', methods= ["GET", "POST"])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('muro'))
+    #if current_user.is_authenticated:
+        #return redirect(url_for('muro'))
     if request.method == 'POST':
         email= request.form['email']
         contraseña = request.form["contraseña"]
@@ -150,8 +150,8 @@ def validarContraseña(contraseña):
     
 @app.route('/registro', methods= ["GET", "POST"])
 def registro():
-    if current_user.is_authenticated:
-        return redirect(url_for('muro'))
+    #if current_user.is_authenticated:
+        #return redirect(url_for('muro'))
     cur= mysql.connection.cursor()
     if request.method == 'POST':
         nombre_completo= request.form['nombre_completo']
@@ -197,7 +197,7 @@ def logout():
     if request.method == "POST":
         logout_user()
         flash('Ha cerrado sesión', 'success')
-        return redirect(url_for('login'))
+        return redirect('/')
     else:
         flash('No fue posible cerrar sesión', 'error')
         return redirect(url_for('muro'))
@@ -380,7 +380,7 @@ def editarPerfil():
         presentacion= request.form['presentacion']
         ubicacion= request.form['ubicacion']
         enlace= request.form['enlace']
-        mostrarSiNo= request.form['mostrarSiNo']
+        #mostrarSiNo= request.form['mostrarSiNo']
         eliminar_foto= request.form.get('eliminar_foto')
         foto_actual= request.form['fotoActual']
 
@@ -401,11 +401,11 @@ def editarPerfil():
             flash('El nombre de usuario ya está en uso, prueba con otro.', 'error')
             return render_template('editarPerfil.html', nombre_completo= nombre_completo, username= username, email= email, 
                                     fotoPerfil= filename, fechaNac= fechaNac, presentacion= presentacion, ubicacion= ubicacion,
-                                    enlace= enlace, mostrarSiNo= mostrarSiNo, id_usuario= id_usuario)
+                                    enlace= enlace, id_usuario= id_usuario)
         else:
             cur.execute('''UPDATE usuario SET nombre_completo = %s, username = %s, fotoPerfil = %s, presentacion = %s,
-                            ubicacion = %s, enlace = %s, mostrarSiNo = %s WHERE id_usuario = %s''', (nombre_completo, username, filename, 
-                                                                                    presentacion, ubicacion, enlace, mostrarSiNo, id_usuario))
+                            ubicacion = %s, enlace = %s WHERE id_usuario = %s''', (nombre_completo, username, filename, 
+                                                                                    presentacion, ubicacion, enlace, id_usuario))
             mysql.connection.commit()
             flash('Tu perfil fue actualizado.', 'success')
             cur.close()
@@ -416,7 +416,7 @@ def editarPerfil():
         cur.close()
         return render_template('editarPerfil.html', nombre_completo= datos['nombre_completo'], username= datos['username'], 
                                email= datos['email'], fotoPerfil= datos['fotoPerfil'], fechaNac= datos['fechaNac'], presentacion= datos['presentacion'], 
-                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], mostrarSiNo= datos['mostrarSiNo'], id_usuario= datos['id_usuario'])
+                               ubicacion= datos['ubicacion'], enlace= datos['enlace'], id_usuario= datos['id_usuario'])
 
 if __name__ == '__main__':
     socketio.run(app, debug= True)
