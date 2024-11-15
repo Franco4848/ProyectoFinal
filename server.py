@@ -195,13 +195,13 @@ def registro():
 @app.route('/logout', methods= ["POST", "GET"])
 @login_required
 def logout():
-    if request.method == "POST":
+    #if request.method == "POST":
         logout_user()
         flash('Ha cerrado sesión', 'success')
         return redirect('/')
-    else:
-        flash('No fue posible cerrar sesión', 'error')
-        return redirect(url_for('muro'))
+    #else:
+        #flash('No fue posible cerrar sesión', 'error')
+        #return redirect(url_for('muro'))
 
 @app.route("/add_post",methods= ["GET", "POST"])
 #@login_required
