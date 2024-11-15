@@ -3,7 +3,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #1e0d26;
+    background: linear-gradient(90deg, rgba(50,20,30,1) 0%, rgba(255,245,235,1) 59%);
     color: #333;
 }
 .modal {
@@ -98,17 +98,14 @@ input[type="number"]:focus {
     padding: 20px;
     background-color: #e8e8e8;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
-    justify-content: center;
-    font-size: 18px;
-
 }
 
-.buscador--button:hover {
-    background-color: #8f55f1;
+button:hover {
+    background-color: #cdcdcb;
 }
 
 #results {
@@ -119,20 +116,33 @@ input[type="number"]:focus {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.confirm--busqueda{
-    width: 150px;
+
+.itemNav {
+    padding: 15px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    background-color: #eee;
+    width: 200px;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.itemNav:hover {
+    background-color: #d5b8b8;
+    transform: scale(1.02);
+}
+
+.itemNav a {
+    text-decoration: none;
+    color: #333;
     padding: 10px;
-    background-color: #e8e8e8;
-
-    border-radius: 5px;
-    margin-top: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-left: 170px;
-    cursor: pointer;
-
+    display: block;
 }
-.confirm--busqueda:hover {
-    background-color: #a9a8ad;
+
+.itemNav .supp {
+    margin-top: 120px;
 }
+
+
 

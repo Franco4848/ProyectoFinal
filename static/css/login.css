@@ -175,3 +175,12 @@ section .cuadrado:nth-child(3) {
 .loginContainer a{
     color:#361f47;
 }
+
+li.flash-message {
+    padding: 15px 30px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
