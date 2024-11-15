@@ -1,18 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap');
-body {
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
-}
-
-.contenedor-main {
-    display: flex;
-} 
-
-.main-contenido{
-    flex: 2;
-    margin-left: 190px;
 }
 
 button{
@@ -30,6 +22,10 @@ section {
 
 section .cuadrado {
     position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     filter: blur(100px);
 }
 
@@ -40,18 +36,25 @@ section .cuadrado:nth-child(1) {
     background: #7f4ca5;
 }
 section .cuadrado:nth-child(2) {
-    bottom: -170px;
+    top: 300px;
     left: 110px;
     width: 550px;
     height: 500px;
-    background: #dbb6ee;
+    background: #bb8ed1;
 }
 section .cuadrado:nth-child(3) {
-    bottom: 80px;
-    right: 120px;
+    top: 100px;
+    left: 600px;
     width: 450px;
     height: 450px;
     background: #b57ebc;
+}
+section .cuadrado:nth-child(4) {
+    top: 900px;
+    left: 600px;
+    width: 450px;
+    height: 450px;
+    background: #d99fe0;
 }
 .cuadrado {
     position: absolute;
@@ -67,8 +70,17 @@ section .cuadrado:nth-child(3) {
     }
 }
 
+.profile-pic {
+    min-width: 160px;
+    min-height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .editBox {
     position: relative;
+    margin: 20px;
 }
 
 .editContainer {
@@ -95,13 +107,17 @@ section .cuadrado:nth-child(3) {
     padding: 40px;
 }
 
+.editForm h1 {
+    color:#2e1f3a;
+}
+
 .editForm h2 {
     position: relative;
-    color: #fff;
+    color: #f3d8ff;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .editForm h2::before {
@@ -111,14 +127,19 @@ section .cuadrado:nth-child(3) {
     bottom: -10px;
     width: 180px;
     height: 4px;
-    background: #fff;
+    background: #f3d8ff;
+}
+
+.editForm .labelBox{
+    margin-bottom: 20px;
+    margin-top: 18px;
 }
 
 .editForm .inputBox {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0;
 }
-.editForm .inputBox input {
+.editForm .inputBox input{
     width: 100%;
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -131,31 +152,72 @@ section .cuadrado:nth-child(3) {
     letter-spacing: 1px;
     color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box
+}
+
+.editForm .inputBox input[type="checkbox"]{
+    width: 25px; 
+    height: 25px; 
+    margin-right: 10px; 
+}
+
+.modImg {
+    margin-bottom: 20px;
+    margin-top: 18px;
+    background: #fff0ff;
+    color: #2e1f3a;
+    cursor: pointer;
+    padding: 17px;
+    width: 100%;
+    transition: 0.3s;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .editForm .inputBox input::placeholder {
     color: #fff;
 }
-.editForm .inputBox input[type="submit"] {
-    background: #fff;
-    color: #666;
+.editForm button{
+    background: #fff0ff;
+    color: #2e1f3a;
+    padding: 10px 20px;
     width: 100%;
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 20px;
     transition: 0.3s;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
 }
-.editForm .inputBox input[type="submit"]:hover {
-    background: #fff0ff;
+.editForm button:hover {
+    background: #dfc9df;
 }
 
-.login {
-    margin-top: 5px;
+.img-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: 20px;           
+}
+.label-actions {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+li.flash-message {
+    padding: 15px 30px;
+    margin: 10px 0;
+    border-radius: 5px;
     color: #fff;
-}
-
-.login button {
-    color: #fff;
-    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
