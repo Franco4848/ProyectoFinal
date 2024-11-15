@@ -104,3 +104,60 @@ ul .mensaje{
     background-color: #eee;
     border-radius: 5px;
 }
+
+.contenedor-main{
+    display: flex;
+}
+.barraNav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    padding: 20px;
+    background-color: #000;
+    width: 200px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid #ccc;
+    box-shadow: 0 10px 8px #f672ca;
+
+    
+}
+
+.itemNav{
+    padding: 15px;
+    margin: 0 0 20px 0;
+    list-style-type: none;
+    text-decoration: none;
+    background-color: #eee;
+    width: 150px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 35px;
+    box-shadow: 0 5px 10px #6e024a;
+
+    
+    
+}
+a{
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    /* padding: 5px 0; */
+    margin-left: 10px;
+    font-size: 20px;
+    text-align:center;
+}
+.separador{
+    margin-top: 30px;
+}
+.supp{
+    margin-top: auto;
+}
+.itemNav:hover{
+    background-color: #6f044c;
+    color: #ccc;
+}
