@@ -20,6 +20,8 @@
         <div class="cuadrado" style="--i:2"></div>
         <div class="cuadrado" style="--i:3"></div>
         <div class="editBox">
+            {% include 'support.html' %}
+
             <div class="editContainer">
                 <div class="editForm">
                     <button onclick="window.location.href='/perfil/{{ current_user.id }}'">Volver</button>

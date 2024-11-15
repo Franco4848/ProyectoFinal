@@ -9,21 +9,63 @@ body {
 /* Contenedor principal que envuelve el navbar y el muro */
 .main-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     height: 100vh; /* Hacemos que el contenedor ocupe toda la altura de la ventana */
 } 
 
+.container {
+    flex: 1; /* Ocupa el resto del espacio disponible */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centramos las publicaciones */
+}
+
+/* Publicaciones centradas */
+.post {
+    width: 100%;
+    max-width: 800px; /* Ajustamos el ancho para centrar mejor */
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    align-items: center; /* Alinea el contenido de las publicaciones al centro */
+}
+
+.post-image {
+    max-width: 100%; /* Imagen ajustada para ocupar más espacio */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.post h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+}
+
+.post p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    text-align: center; /* Alineación centrada del texto */
+}
+
+.post-description {
+    font-size: 14px;
+    color: #666;
+}
 
 /* Botón más grande */
-
 button {
     background-color: #007BFF;
-    padding: 15px 30px; 
+    padding: 15px 30px; /* Botón más grande */
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px; 
+    font-size: 16px; /* Texto más grande */
     margin-top: 20px;
 }
 
@@ -33,11 +75,17 @@ button a {
 }
 
 button:hover {
-    background-color: #2383ea; 
-    
+    background-color: #0056b3; /* Hover más claro */
 }
 
-
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    width: 100%; /* Alineación de los comentarios */
+}
 
 /* Modal centrado y ajustado */
 .modal {
@@ -48,35 +96,22 @@ button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
 }
 
 /* Contenido del modal */
 .modal-content {
-    background-color: white;
-    margin: 7% auto; /* Centrado vertical y horizontal */
-    padding: 10px;
-    border-radius: 8px;
-    width: 70%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    max-width: 500px; /* Limita el ancho del modal */
     position: relative;
-    box-sizing: border-box; /* Hace que el padding y los márgenes no afecten el tamaño */
-    overflow: hidden;
+    background-color: white;
+    margin: 10% auto;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px; /* Limita el ancho del modal */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
 }
-.modal-content button {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%; /* El botón ocupará todo el ancho del formulario */
-    font-size: 16px;
-    box-sizing: border-box; /* Asegura que el botón no sobresalga */
-}
-
 
 /* Botón de cerrar el modal */
 .close {
@@ -100,13 +135,10 @@ button:hover {
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 15px;
 }
 
 #openModal:hover {
     background-color: #0056b3;
-    border-color: #e1e7ed;
-    box-shadow: 0 0 20px hsl(193, 87%, 49%);
 }
 
 
@@ -117,94 +149,52 @@ button:hover {
     top: 0;
     left: 0;
     margin: 0;
-    padding: 50px;
+    padding: 0;
+    padding: 20px;
     background-color: #000;
-    width: 150px;
+    width: 200px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-   
+    align-items: center;
+    border-right: 2px solid #ccc;
+    box-shadow: 0 10px 8px #f672ca;
+
+    
 }
 
 .itemNav{
-    padding: 10px;
+    padding: 15px;
     margin: 0 0 20px 0;
     list-style-type: none;
     text-decoration: none;
     background-color: #eee;
-    width: 120px;
+    width: 150px;
     font-size: 18px;
     border-radius: 10px;
+    margin-top: 35px;
+    box-shadow: 0 5px 10px #6e024a;
+
+    
     
 }
 a{
     text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    /* padding: 5px 0; */
     margin-left: 10px;
-    color: black;
+    font-size: 20px;
+    text-align:center;
 }
-
-.itemNav .supp{
-    margin-top: auto; 
+.separador{
+    margin-top: 30px;
 }
-
-
-
-.container{
-    width: 90%;
-    max-width: 850px;
-    margin: 0 auto;
-    margin-right: 40px;
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    background-color: #fff; /* Fondo blanco */
-    overflow: hidden; /* Para que el contenido respete los bordes redondeados */
-    transition: box-shadow 0.3s ease; /* Animación para un efecto sutil al hacer hover */
+.supp{
+    margin-top: auto;
 }
-.post-image{
-    height: 400px;
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-    object-position: 50% 50%;
-    object-fit: cover;
-}
-.title{
-    text-align: left;
-    margin: 0;
-}
-.descripcion{
-    flex-grow: 1;
-}
-/*.post-image{
-    
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}*/
-.post-body{
-    border-radius: 0 0 10px 10px;
-    background-color: #fff;
-    padding: 20px 15px;
-    text-align: justify;
-    border: 1px solid #ccc;
-}
-
-.comment {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    width: 100%; /* Alineación de los comentarios */
-}
-.post {
-    width: 90%;
-    margin: 0 auto;
-}
-
-.post:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-.comments{
-    width: 100%;
+.itemNav:hover{
+    background-color: #6f044c;
+    color: #ccc;
 }
 

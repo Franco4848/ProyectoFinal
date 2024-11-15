@@ -13,6 +13,7 @@ from flask_login import UserMixin, LoginManager, login_user, logout_user, login_
 from datetime import datetime
 import locale
 locale.setlocale(locale.LC_TIME, 'es_AR.UTF-8')
+from MySQLdb.cursors import DictCursor
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -288,25 +289,34 @@ def suppot():
     return render_template('support.html')
 
 #---Buscador de vinos ---
+
 @app.route('/buscar', methods=['GET'])
 def buscar():
+    return render_template('buscar.html') 
+
+@app.route('/buscar_vinos', methods=['GET'])
+def buscar_vinos():
     query = request.args.get('query', '')
-    cursor = mysql.connection.cursor()
-    
+    cursor = mysql.connection.cursor()  # Asegura que el cursor devuelva diccionarios
     cursor.execute("SELECT id, titulo, imagen, descripcion FROM publi WHERE titulo LIKE %s OR descripcion LIKE %s", 
-                   (f'%{query}%', f'%{query}%'))
+                (f'%{query}%', f'%{query}%'))
     resultados = cursor.fetchall()
+    cursor.close()
     
-    publicaciones = []
-    for publi in resultados:
-        publicaciones.append({
-            "id": publi[0],
-            "titulo": publi[1],
-            "imagen": publi[2],
-            "descripcion": publi[3]
-        })
+    print("Resultados de la consulta:", resultados)  # Debug: Ver los resultados en la consola
     
+    publicaciones = [
+        {
+            "id": publi['id'],
+            "titulo": publi['titulo'],
+            "imagen": publi['imagen'],
+            "descripcion": publi['descripcion']
+        }
+        for publi in resultados
+    ]
     return jsonify(publicaciones)
+
+
 
 
 def extension_permitida(archivo):
@@ -323,8 +333,10 @@ def perfil(id_usuario, id_publicacion):
     cur.execute('''
         SELECT u.*, p.id AS pub_id, p.titulo, p.imagen, p.descripcion, c.descripcion AS comentario 
         FROM usuario u 
-        LEFT JOIN publi p ON u.id_usuario = p.id_usuario 
-        LEFT JOIN comentarios c ON p.id = c.publi_id 
+        LEFT JOIN publi p 
+        ON u.id_usuario = p.id_usuario 
+        LEFT JOIN comentarios c 
+        ON p.id = c.publi_id 
         WHERE u.id_usuario = %s
     ''', (id_usuario,))
     resultados= cur.fetchall()

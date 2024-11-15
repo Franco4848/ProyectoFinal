@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/static/css/muro.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/support.css') }}">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='javascript/modal.js') }}"></script>
@@ -13,17 +15,8 @@
     <title>Muro de Publicaciones</title>
 </head>
 <body>
-    <div class="main-container">
-        <!-- NavBar a la izquierda -->
-        <ul class="barraNav">
-            <li class="itemNav"><i class='bx bx-home'></i><a href="/add_post"> Inicio</a></li>
-            <li class="itemNav"><i class='bx bx-chat'></i><a href="/chat">Chat</a></li>
-            <li class="itemNav"><i class='bx bx-search-alt'></i><a href="">Buscar</a></li>
-            <li class="itemNav"><i class='bx bx-log-out-circle'></i><a href="">Logout</a></li>
-            <li class="itemNav"><i class='bx bx-user'></i><a href="/perfil/{{ current_user.id }}">Perfil</a></li>
-            <li class="itemNav supp"><i class='bx bx-support'></i><a href="">Support</a></li>
-        </ul>
-  
+    {% include 'support.html' %}
+    
         <!-- Muro de publicaciones -->
         <div class="container">
             <!-- Botón para abrir el modal -->
@@ -34,13 +27,9 @@
             <!-- Bucle que recorre las publicaciones -->
             {% for cliente in clientes %}
             <div class="post">
-                
+                <h2>{{ cliente.titulo }}</h2>
                 <img class="post-image" src="{{ url_for('static', filename='uploads/' + cliente.imagen) }}" alt="Imagen de {{ cliente.titulo }}">
-                 
-                <div class="post-body">
-                    <h2 class="title">{{ cliente.titulo }}</h2>
-                    <p class="descripcion">{{ cliente.descripcion }}</p>
-                </div>
+                <p>{{ cliente.descripcion }}</p>
     
                 <h3>Comentarios</h3>
     
@@ -78,16 +67,17 @@
                     <h1>Publicar</h1>
                     <label for="titulo">Título:</label><br>
                     <input type="text" id="titulo" name="titulo"><br>
-                    
+                    <br>
                     <label class="logo" for="logo">Agregar imagen:</label><br>
-                    <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;">
+                    <img src="../static/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.avif" style="width: 50%;"><br>
                     <input type="file" name="imagen" accept="image/*"><br><br>
                     <label for="descripcion">Agregar descripción:</label><br>
-                    <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br>
+                    <input type="text" id="descripcion" name="descripcion" style="box-sizing: 50%;"><br><br>
                     <button type="submit">Publicar</button>
                 </form>
             </div>
         </div>
+
 
         <script>
             // Obtén el modal y el botón que lo abre
