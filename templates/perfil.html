@@ -19,51 +19,42 @@
             <main class="contenido-perfil">
                 <section class="seccion-perfil">
                     <header>
-                        {% with messages = get_flashed_messages() %}
+                        {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
-                                <ul class="mensaje-flash">
-                                    {% for message in messages %}
-                                        <li>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
+                                <ul>{% for category, message in messages %}</ul>
+                                    <li class="flash-message {{category}}" >{{ message }}</li>
+                                <ul>{% endfor %}</ul>
                             {% endif %}
                         {% endwith %}
                     </header>
                     <div class="datos-perfil">
+                        <div class="seccion-img">
+                            {% if datos['fotoPerfil'] %}
+                                <img src="{{ url_for('static', filename='perfil_uploads/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" class="foto-perfil">
+                            {% else %}
+                                <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" class="foto-perfil">
+                            {% endif %}
+                        </div>
+                        <div class="seccion-datos">
+                            <h2>{{ datos['nombre_completo'] }} @{{ datos['username'] }}</h2>
 
-                        {% if datos['fotoPerfil'] %}
-                            <img src="{{ url_for('static', filename='perfil_uploads/' + datos['fotoPerfil']) }}" alt="Imagen de perfil de {{ datos['username'] }}" class="foto-perfil">
-                        {% else %}
-                            <img src="{{ url_for('static', filename= 'img/fotoPerfil.jpg') }}" alt="Imagen de perfil predeterminada" class="foto-perfil">
-                        {% endif %}
+                            <h4>{{ datos['presentacion'] }}</h4>
 
-                        <h2>{{ datos['nombre_completo'] }} @{{ datos['username'] }}</h2>
+                            {% if datos['ubicacion'] %}
+                                <h4>Ubicación: {{ datos['ubicacion'] }}</h4>
+                            {%endif%}
 
-                        <h3>{{ datos['presentacion'] }}</h3>
-
-                        {% if datos['mostrarSiNo'] == 'fecha' %}
-                            <h4>Fecha de nacimiento: {{ fecha_perfil }}</h4>
-                        {% elif datos['mostrarSiNo'] == 'edad' %}
-                            <h4>Edad: {{ edad }}</h4>
-                        {% endif %}
-
-                        {% if datos['ubicacion'] %}
-                            <h4>Ubicación: {{ datos['ubicacion'] }}</h4>
-                        {%endif%}
-
-                        {% if datos['email'] %}
-                            <h4>Email: <a href="mailto:{{datos['email']}}">{{ datos['email'] }}</a></h4>
-                        {% endif %}
-                    
-                        {% if datos['enlace'] %}
-                            <h4>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></h4>
-                        {% endif %}
-
-                        <!--<p>Estrellas: {{ datos['estrellas'] }}</p>-->
-
-                        {% if current_user.id == datos['id_usuario'] %}
-                            <button onclick="window.location.href='/editarPerfil'">Editar perfil</button><br>
-                        {% endif %}
+                            {% if datos['email'] %}
+                                <h4>Email: <a href="mailto:{{datos['email']}}">{{ datos['email'] }}</a></h4>
+                            {% endif %}
+                        
+                            {% if datos['enlace'] %}
+                                <h4>Enlace: <a href="{{ datos['enlace'] }}">{{ datos['enlace'] }}</a></h4>
+                            {% endif %}
+                            {% if current_user.id == datos['id_usuario'] %}
+                                <button onclick="window.location.href='/editarPerfil'">Editar perfil</button>
+                            {% endif %}
+                        </div>
 
                     </div>
                 </section>

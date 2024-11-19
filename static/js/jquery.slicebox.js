@@ -343,7 +343,34 @@
 				height	: $visible.height()
 			};
 
+    // Aplica el tamaño fijo al contenedor del slider
+    		this.$el.css({
+        		width: this.size.width,
+        		height: this.size.height
+    		});
+
+    // Asegúrate de que todas las imágenes tengan el mismo tamaño
+    		this.$items.find('img').css({
+        		width: '100%',
+        		height: '100%',
+        		objectFit: 'cover' // Ajusta la imagen dentro del contenedor
+    		});
+
+			if (!this.size) {
+				var $visible = this.$items.eq(0).find('img');
+				this.size = {
+					width: $visible.width(),
+					height: $visible.height()
+				};
+			}
+			this.$el.css({
+				width: this.size.width,
+				height: this.size.height
+			});
+
 		},
+
+		
 		_setStyle : function() {
 
 			// max-width is the real size of the images
